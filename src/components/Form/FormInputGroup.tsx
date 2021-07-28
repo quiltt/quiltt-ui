@@ -2,7 +2,10 @@ import * as React from 'react'
 
 import classNames from 'classnames'
 
-import { AsProp, CustomComponentRefForwardingComponent } from 'utils/components'
+import {
+  AsProp,
+  CustomComponentRefForwardingComponent,
+} from '../../utils/components'
 
 import FormInput from './FormInput'
 import FormInputGroupContext from './FormInputGroupContext'

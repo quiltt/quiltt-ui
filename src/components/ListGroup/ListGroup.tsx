@@ -5,7 +5,7 @@ import classNames from 'classnames'
 import {
   CustomComponentProps,
   CustomComponentRefForwardingComponent,
-} from 'utils/components'
+} from '../../utils/components'
 
 import ListGroupItem from './ListGroupItem'
 import styles from './styles'

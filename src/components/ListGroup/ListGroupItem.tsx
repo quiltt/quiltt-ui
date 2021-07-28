@@ -6,7 +6,7 @@ import {
   ColorVariants,
   CustomComponentProps,
   CustomComponentRefForwardingComponent,
-} from 'utils/components'
+} from '../../utils/components'
 
 import styles from './styles'
 

@@ -4,7 +4,7 @@ import { ChevronDownIcon } from '@heroicons/react/outline'
 
 import Button from 'components/Button'
 import Dropdown from 'components/Dropdown'
-import { ColorVariants } from 'utils/components'
+import { ColorVariants } from '../utils/components'
 
 type Option = {
   description: string

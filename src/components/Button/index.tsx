@@ -6,8 +6,8 @@ import {
   ColorVariants,
   CustomComponentProps,
   CustomComponentRefForwardingComponent,
-} from 'utils/components'
-import warn from 'utils/warning'
+} from '../../utils/components'
+import warn from '../../utils/warning'
 
 import styles from './styles'
 
