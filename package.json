@@ -11,7 +11,7 @@
     "node": ">=14"
   },
   "scripts": {
-    "test": "cross-env CI=1 react-scripts test --env=jsdom",
+    "test": "echo \"Write tests\"",
     "build": "rollup -c",
     "develop": "rollup -c -w",
     "start": "yarn develop",
