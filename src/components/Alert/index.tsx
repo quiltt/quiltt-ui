@@ -158,6 +158,8 @@ const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
 
   return (
     <div className={cls} role="alert" ref={ref} {...otherProps}>
+      {hasIcon ? <Icon className={iconCls} /> : null}
+      {children}
       {onClose && (
         <button
           onClick={onClose}
@@ -180,8 +182,6 @@ const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
           </svg>
         </button>
       )}
-      {hasIcon ? <Icon className={iconCls} /> : null}
-      {children}
     </div>
   )
 })

@@ -1,5 +1,5 @@
 export default {
-  base: 'p-4 relative rounded-lg leading-5',
+  base: 'pl-4 pr-4 pt-4 pb-4 relative rounded-lg leading-5',
   withIcon: 'pl-12',
   withClose: 'pr-12',
   type: {
