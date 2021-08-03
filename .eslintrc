@@ -3,12 +3,14 @@
   "parser": "@typescript-eslint/parser",
   "extends": [
     "airbnb-typescript",
-    "plugin:prettier/recommended",
-    "plugin:@typescript-eslint/eslint-recommended"
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:prettier/recommended"
   ],
-  "plugins": ["@typescript-eslint"],
+  "plugins": ["simple-import-sort", "jest-dom", "@typescript-eslint"],
   "env": {
-    "node": true
+    "browser": true,
+    "node": true,
+    "jest": true
   },
   "parserOptions": {
     "ecmaVersion": 2020,
@@ -24,16 +26,39 @@
     }
   },
   "rules": {
+    "max-len": [1, { "code": 100 }],
     "space-before-function-paren": 0,
     "react/prop-types": 0,
     "react/jsx-handler-names": 0,
     "react/jsx-fragments": 0,
     "react/no-unused-prop-types": 0,
     "react/jsx-props-no-spreading": 0,
-    "import/export": 0,
+    "react/jsx-uses-react": "off",
+    "react/react-in-jsx-scope": "off",
     "no-unused-vars": "off",
     "@typescript-eslint/no-unused-vars": "error",
     "no-use-before-define": "off",
-    "@typescript-eslint/no-use-before-define": "error"
+    "@typescript-eslint/no-use-before-define": "error",
+    "import/export": 0,
+    "import/prefer-default-export": 0,
+    "import/no-extraneous-dependencies": 0,
+    "import/first": "error",
+    "import/newline-after-import": "error",
+    "import/no-duplicates": "error",
+    "simple-import-sort/imports": [
+      "error",
+      {
+        "groups": [
+          ["^react", "^react-dom"],
+          ["^@?\\w"],
+          ["^(@|@company|@ui|components|utils|config|vendored-lib)(/.*|$)"],
+          ["^\\u0000"],
+          ["^\\.\\.(?!/?$)", "^\\.\\./?$"],
+          ["^\\./(?=.*/)(?!/?$)", "^\\.(?!/?$)", "^\\./?$"],
+          ["^.+\\.s?css$"]
+        ]
+      }
+    ],
+    "simple-import-sort/exports": "off"
   }
 }

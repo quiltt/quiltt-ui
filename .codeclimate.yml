@@ -1,0 +1,40 @@
+version: '2'
+plugins:
+  editorconfig:
+    enabled: true
+  duplication:
+    enabled: true
+    exclude_patterns:
+      - 'src/types/'
+      - '**/*.test.js'
+      - '**/*.test.jsx'
+      - '**/*.test.ts'
+      - '**/*.test.tsx'
+      - '**/*.d.ts'
+      - '**/*.stories.tsx'
+      - '**/*.stories.mdx'
+  fixme:
+    enabled: true
+    config:
+      strings:
+        - TODO
+        - FIXME
+exclude_patterns:
+  - '.husky/'
+  - '.storybook/'
+  - '.vscode/'
+  - '**/example/'
+  - '**/jest/'
+  - '**/node_modules/'
+  - '**/src/types/'
+  - 'src/types/index.ts'
+  - '.eslintrc'
+  - '.prettierrc'
+  - 'babel.config.js'
+  - 'commitlint.config.js'
+  - 'jest.config.js'
+  - 'rollup.config.js'
+  - 'tailwind.config.js'
+  - 'yarn.lock'
+  - '**/*.d.ts'
+  - 'README.md'

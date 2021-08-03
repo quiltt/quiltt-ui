@@ -11,26 +11,19 @@ export interface CardHeaderProps extends React.HTMLAttributes<HTMLDivElement> {
   colored?: boolean
 }
 
-const CardHeader = React.forwardRef<HTMLDivElement, CardHeaderProps>(
-  function Card(props, ref) {
-    const { className, children, colored = false, ...otherProps } = props
+const CardHeader = React.forwardRef<HTMLDivElement, CardHeaderProps>(function Card(props, ref) {
+  const { className, children, colored = false, ...otherProps } = props
 
-    const baseStyle = styles.cardHeader.base
-    const uncoloredStyle = styles.cardHeader.default
+  const baseStyle = styles.cardHeader.base
+  const uncoloredStyle = styles.cardHeader.default
 
-    const cls = classNames(
-      'card-header',
-      baseStyle,
-      !colored && uncoloredStyle,
-      className
-    )
+  const cls = classNames('card-header', baseStyle, !colored && uncoloredStyle, className)
 
-    return (
-      <div className={cls} ref={ref} {...otherProps}>
-        {children}
-      </div>
-    )
-  }
-)
+  return (
+    <div className={cls} ref={ref} {...otherProps}>
+      {children}
+    </div>
+  )
+})
 
 export default CardHeader

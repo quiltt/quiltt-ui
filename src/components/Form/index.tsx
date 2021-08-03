@@ -14,10 +14,7 @@ export interface FormProps extends React.HTMLAttributes<HTMLFormElement> {
   validated?: boolean
 }
 
-const Form = React.forwardRef<HTMLFormElement, FormProps>(function Form(
-  props,
-  ref
-) {
+const Form = React.forwardRef<HTMLFormElement, FormProps>(function Form(props, ref) {
   const { className, children, noValidate, validated, ...otherProps } = props
 
   const cls = classNames(className, validated && 'is-validated')

@@ -18,35 +18,24 @@ export type ListGroupItemProps = React.HTMLAttributes<HTMLElement> &
 
 type Ref = React.ReactNode | HTMLElement | string
 
-const ListGroupItem: CustomComponentRefForwardingComponent<
-  'li',
-  ListGroupItemProps
-> = React.forwardRef<Ref, ListGroupItemProps>(function ListGroupItem(
-  props,
-  ref
-) {
-  const {
-    as = 'li',
-    variant = 'default',
-    className,
-    children,
-    ...otherProps
-  } = props
+const ListGroupItem: CustomComponentRefForwardingComponent<'li', ListGroupItemProps> =
+  React.forwardRef<Ref, ListGroupItemProps>(function ListGroupItem(props, ref) {
+    const { as = 'li', variant = 'default', className, children, ...otherProps } = props
 
-  const baseStyle = styles.listGroupItem.base
-  const variantStyle = styles.listGroupItem[variant]
+    const baseStyle = styles.listGroupItem.base
+    const variantStyle = styles.listGroupItem[variant]
 
-  const cls = classNames(baseStyle, variantStyle, className)
+    const cls = classNames(baseStyle, variantStyle, className)
 
-  return React.createElement(
-    as as string,
-    {
-      className: cls,
-      ref,
-      ...otherProps,
-    },
-    children
-  )
-})
+    return React.createElement(
+      as as string,
+      {
+        className: cls,
+        ref,
+        ...otherProps,
+      },
+      children
+    )
+  })
 
 export default ListGroupItem

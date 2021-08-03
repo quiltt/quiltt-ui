@@ -2,21 +2,13 @@ import * as React from 'react'
 
 import classNames from 'classnames'
 
-import {
-  AsProp,
-  CustomComponentRefForwardingComponent,
-} from '../../utils/components'
+import { AsProp, CustomComponentRefForwardingComponent } from '../../utils/components'
 
 import FormInput from './FormInput'
 import FormInputGroupContext from './FormInputGroupContext'
 import styles from './styles'
 
-const InputGroupPrepend = ({
-  children,
-  ...otherProps
-}: {
-  children: React.ReactNode
-}) =>
+const InputGroupPrepend = ({ children, ...otherProps }: { children: React.ReactNode }) =>
   React.createElement(
     'div',
     {
@@ -26,12 +18,7 @@ const InputGroupPrepend = ({
     children
   )
 
-const InputGroupAppend = ({
-  children,
-  ...otherProps
-}: {
-  children: React.ReactNode
-}) =>
+const InputGroupAppend = ({ children, ...otherProps }: { children: React.ReactNode }) =>
   React.createElement(
     'div',
     {
@@ -41,12 +28,8 @@ const InputGroupAppend = ({
     children
   )
 
-const InputGroupText = ({
-  children,
-  ...otherProps
-}: {
-  children: React.ReactNode
-}) => React.createElement('span', { ...otherProps }, children)
+const InputGroupText = ({ children, ...otherProps }: { children: React.ReactNode }) =>
+  React.createElement('span', { ...otherProps }, children)
 
 const InputGroupCheckbox = (props: any) => (
   <InputGroupText>
@@ -60,9 +43,7 @@ const InputGroupRadio = (props: any) => (
   </InputGroupText>
 )
 
-export interface InputGroupProps
-  extends React.HTMLAttributes<HTMLElement>,
-    AsProp {
+export interface InputGroupProps extends React.HTMLAttributes<HTMLElement>, AsProp {
   size?: 'sm' | 'lg' | 'default'
   hasValidation?: boolean
 }
@@ -75,10 +56,10 @@ type Ref = React.ReactNode | HTMLElement | string
  * @property {InputGroupRadio} Radio
  * @property {InputGroupCheckbox} Checkbox
  */
-const InputGroup: CustomComponentRefForwardingComponent<
-  'div',
+const InputGroup: CustomComponentRefForwardingComponent<'div', InputGroupProps> = React.forwardRef<
+  Ref,
   InputGroupProps
-> = React.forwardRef<Ref, InputGroupProps>(function InputGroup(props, ref) {
+>(function InputGroup(props, ref) {
   const {
     as = 'div',
     size = 'default',

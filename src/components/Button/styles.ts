@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 export default {
   base: 'align-bottom inline-flex items-center justify-center cursor-pointer leading-none transition-colors duration-150 font-medium focus:outline-none',
   block: 'w-full',
@@ -27,44 +28,37 @@ export default {
     solid: {
       primary: {
         base: 'text-white bg-primary-500 border border-transparent',
-        active:
-          'active:bg-primary-600 hover:bg-primary-600 focus:ring focus:ring-gray-400',
+        active: 'active:bg-primary-600 hover:bg-primary-600 focus:ring focus:ring-gray-400',
         disabled: 'opacity-75 cursor-not-allowed',
       },
       secondary: {
         base: 'text-white bg-secondary-500 border border-transparent',
-        active:
-          'active:bg-secondary-600 hover:bg-secondary-600 focus:ring focus:ring-gray-400',
+        active: 'active:bg-secondary-600 hover:bg-secondary-600 focus:ring focus:ring-gray-400',
         disabled: 'opacity-75 cursor-not-allowed',
       },
       light: {
         base: 'text-dark bg-light border border-transparent',
-        active:
-          'active:bg-gray-300 hover:bg-gray-300 focus:ring focus:ring-gray-400',
+        active: 'active:bg-gray-300 hover:bg-gray-300 focus:ring focus:ring-gray-400',
         disabled: 'opacity-75 cursor-not-allowed',
       },
       dark: {
         base: 'text-light bg-dark border border-transparent',
-        active:
-          'active:bg-gray-600 hover:bg-gray-600 focus:ring focus:ring-gray-400',
+        active: 'active:bg-gray-600 hover:bg-gray-600 focus:ring focus:ring-gray-400',
         disabled: 'opacity-75 cursor-not-allowed',
       },
       danger: {
         base: 'text-white bg-red-600 border border-transparent',
-        active:
-          'active:bg-red-800 hover:bg-red-800 focus:ring focus:ring-gray-400',
+        active: 'active:bg-red-800 hover:bg-red-800 focus:ring focus:ring-gray-400',
         disabled: 'opacity-75 cursor-not-allowed',
       },
       success: {
         base: 'text-white bg-green-600 border border-transparent',
-        active:
-          'active:bg-green-800 hover:bg-green-800 focus:ring focus:ring-gray-400',
+        active: 'active:bg-green-800 hover:bg-green-800 focus:ring focus:ring-gray-400',
         disabled: 'opacity-75 cursor-not-allowed',
       },
       warning: {
         base: 'text-dark bg-yellow-600 border border-transparent',
-        active:
-          'active:bg-yellow-800 hover:bg-yellow-800 focus:ring focus:ring-gray-400',
+        active: 'active:bg-yellow-800 hover:bg-yellow-800 focus:ring focus:ring-gray-400',
         disabled: 'opacity-75 cursor-not-allowed',
       },
     },

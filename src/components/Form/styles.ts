@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 export default {
   formGroup: {
     base: 'mb-4',
@@ -10,10 +11,8 @@ export default {
   },
   inputGroup: {
     base: 'mb-4 flex w-full',
-    prepend:
-      'h-full p-2 flex items-center self-center bg-gray-200 rounded-l-lg border',
-    append:
-      'h-full p-2 flex items-center self-center bg-gray-200 rounded-r-lg border',
+    prepend: 'h-full p-2 flex items-center self-center bg-gray-200 rounded-l-lg border',
+    append: 'h-full p-2 flex items-center self-center bg-gray-200 rounded-r-lg border',
   },
   input: {
     sm: 'h-8 block w-full text-sm focus:outline-none dark:text-gray-300 leading-5 rounded-sm',

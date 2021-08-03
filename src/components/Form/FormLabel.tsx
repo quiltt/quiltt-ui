@@ -19,10 +19,7 @@ export interface LabelProps extends React.HTMLAttributes<HTMLLabelElement> {
   disabled?: boolean
 }
 
-const Label = React.forwardRef<HTMLLabelElement, LabelProps>(function Label(
-  props,
-  ref
-) {
+const Label = React.forwardRef<HTMLLabelElement, LabelProps>(function Label(props, ref) {
   const { children, check, radio, disabled, className, ...other } = props
 
   const baseStyle = styles.label.base

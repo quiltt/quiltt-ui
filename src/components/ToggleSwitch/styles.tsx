@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 export default {
   base: 'bg-primary relative inline-flex flex-shrink-0 rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75',
   checked: 'opacity-100 hover:opacity-90',

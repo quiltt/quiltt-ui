@@ -10,10 +10,7 @@ export type CardImgProps = React.HTMLAttributes<HTMLImageElement> & {
   // variant?: 'top' | 'bottom'
 }
 
-const CardImg = React.forwardRef<HTMLImageElement, CardImgProps>(function Card(
-  props,
-  ref
-) {
+const CardImg = React.forwardRef<HTMLImageElement, CardImgProps>(function Card(props, ref) {
   const { src, className, alt = '', ...otherProps } = props
 
   const baseStyle = styles.cardImg.base

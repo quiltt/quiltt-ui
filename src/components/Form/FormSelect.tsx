@@ -11,10 +11,7 @@ export interface SelectProps extends React.ComponentPropsWithRef<'select'> {
   valid?: boolean
 }
 
-const Select = React.forwardRef<HTMLSelectElement, SelectProps>(function Select(
-  props,
-  ref
-) {
+const Select = React.forwardRef<HTMLSelectElement, SelectProps>(function Select(props, ref) {
   const { valid, children, className, multiple, disabled, ...other } = props
 
   const baseStyle = styles.select.base
@@ -47,13 +44,7 @@ const Select = React.forwardRef<HTMLSelectElement, SelectProps>(function Select(
   )
 
   return (
-    <select
-      className={cls}
-      ref={ref}
-      disabled={disabled}
-      multiple={!!multiple}
-      {...other}
-    >
+    <select className={cls} ref={ref} disabled={disabled} multiple={!!multiple} {...other}>
       {children}
     </select>
   )

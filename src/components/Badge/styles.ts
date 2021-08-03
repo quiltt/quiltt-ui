@@ -4,8 +4,6 @@ export default {
   danger: 'text-red-700 bg-red-100 dark:text-red-100 dark:bg-red-700',
   warning: 'text-yellow-700 bg-yellow-100 dark:text-white dark:bg-yellow-700',
   neutral: 'text-gray-700 bg-gray-100 dark:text-gray-100 dark:bg-gray-700',
-  primary:
-    'text-primary-700 bg-primary-100 dark:text-white dark:bg-primary-700',
-  secondary:
-    'text-secondary-700 bg-secondary-100 dark:text-white dark:bg-secondary-700',
+  primary: 'text-primary-700 bg-primary-100 dark:text-white dark:bg-primary-700',
+  secondary: 'text-secondary-700 bg-secondary-100 dark:text-white dark:bg-secondary-700',
 }

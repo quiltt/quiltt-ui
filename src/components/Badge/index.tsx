@@ -11,10 +11,7 @@ export interface BadgeProps extends React.HTMLAttributes<HTMLSpanElement> {
   type?: 'success' | 'danger' | 'warning' | 'neutral' | 'primary' | 'secondary'
 }
 
-const Badge = React.forwardRef<HTMLSpanElement, BadgeProps>(function Badge(
-  props,
-  ref
-) {
+const Badge = React.forwardRef<HTMLSpanElement, BadgeProps>(function Badge(props, ref) {
   const { className, children, type = 'neutral', ...otherProps } = props
 
   const baseStyle = styles.base
