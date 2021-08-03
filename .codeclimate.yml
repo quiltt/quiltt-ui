@@ -13,6 +13,7 @@ plugins:
       - '**/*.d.ts'
       - '**/*.stories.tsx'
       - '**/*.stories.mdx'
+      - '**/styles.ts'
   fixme:
     enabled: true
     config:

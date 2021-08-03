@@ -1,6 +1,6 @@
 /* eslint-disable max-len */
 export default {
-  base: 'align-bottom inline-flex items-center justify-center cursor-pointer leading-none transition-colors duration-150 font-medium focus:outline-none',
+  base: 'align-bottom inline-flex items-center justify-center leading-none transition-colors duration-150 font-medium focus:outline-none',
   block: 'w-full',
   size: {
     xl: 'px-10 py-5 rounded-lg text-xl',
