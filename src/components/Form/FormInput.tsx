@@ -43,9 +43,18 @@ const FormInput = React.forwardRef<HTMLInputElement, FormInputProps>(
       : errors[name]?.message || errors[name]
 
     const hasIcon = leftIcon || rightIcon
-    const iconClasses = 'flex items-center justify-center p-2 bg-gray-100 border appearance-none'
-    const leftIconClasses = classNames(iconClasses, 'border-r-0 rounded-l')
-    const rightIconClasses = classNames(iconClasses, 'border-l-0 rounded-r')
+    const iconClasses =
+      'flex items-center justify-center p-2 bg-gray-100 border border-gray-300 appearance-none'
+    const leftIconClasses = classNames(
+      iconClasses,
+      styles.input[size],
+      `border-r-0 rounded-l-${size}`
+    )
+    const rightIconClasses = classNames(
+      iconClasses,
+      styles.input[size],
+      `border-l-0 rounded-r-${size}`
+    )
 
     const isDisabled = disabled || isSubmitting
 
@@ -92,7 +101,16 @@ const FormInput = React.forwardRef<HTMLInputElement, FormInputProps>(
                   <DynamicHeroIcon icon={leftIcon} />
                 </div>
               )}
-              <input className={cls} disabled={isDisabled} {...register(name)} {...otherProps} />
+              <input
+                className={classNames(
+                  cls,
+                  leftIcon && `border-l-0 rounded-l-none rounded-r-${size}`,
+                  rightIcon && `border-r-0 rounded-r-none rounded-l-${size}`
+                )}
+                disabled={isDisabled}
+                {...register(name)}
+                {...otherProps}
+              />
               {rightIcon && (
                 <div className={rightIconClasses}>
                   <DynamicHeroIcon icon={rightIcon} />
@@ -100,7 +118,12 @@ const FormInput = React.forwardRef<HTMLInputElement, FormInputProps>(
               )}
             </div>
           ) : (
-            <input className={cls} disabled={isDisabled} {...register(name)} {...otherProps} />
+            <input
+              className={classNames(cls, `rounded-${size}`)}
+              disabled={isDisabled}
+              {...register(name)}
+              {...otherProps}
+            />
           )}
         </label>
 
