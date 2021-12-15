@@ -2,14 +2,14 @@ import * as React from 'react'
 
 import classNames from 'classnames'
 
-import { ColorVariants, SizeVariants } from '../../types'
+import { ColorVariantsWithLightAndDark, SizeVariants } from '../../types'
 
 import styles from './styles'
 
 export type SpinnerKind = 'centered' | 'overlay' | 'inline'
 
 type SpinnerProps = {
-  color?: ColorVariants
+  color?: ColorVariantsWithLightAndDark
   size?: SizeVariants
   kind?: SpinnerKind
   style?: React.CSSProperties

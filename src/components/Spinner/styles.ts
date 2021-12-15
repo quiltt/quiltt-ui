@@ -5,6 +5,10 @@ export default {
     light: 'border-t-light border-gray-300',
     primary: 'border-t-primary border-primary-100',
     secondary: 'border-t-secondary border-secondary-100',
+    success: 'border-t-green border-green-100',
+    info: 'border-t-blue border-blue-100',
+    warning: 'border-t-yellow border-yellow-100',
+    danger: 'border-t-red border-red-100',
   },
   size: {
     base: 'h-8 w-8 border-4 border-t-4',

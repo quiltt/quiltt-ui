@@ -79,7 +79,7 @@ const Form = <S extends z.ZodType<any, any>>({
 
         {submitText && (
           <Button type="submit" disabled={ctx.formState.isSubmitting} block>
-            {ctx.formState.isSubmitting ? <Spinner /> : submitText}
+            {ctx.formState.isSubmitting ? <Spinner size="sm" color="light" /> : submitText}
           </Button>
         )}
       </form>
