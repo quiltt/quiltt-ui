@@ -4,104 +4,104 @@ import classNames from 'classnames'
 
 import styles from './styles'
 
-enum AlertEnum {
-  success,
-  danger,
-  warning,
-  info,
-  neutral,
+type IconProps = React.SVGAttributes<SVGElement>
+
+export const InfoIcon: React.FC<IconProps> = (props) => {
+  return (
+    <svg
+      {...props}
+      fill="none"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="2"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+    >
+      <path d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+    </svg>
+  )
 }
 
-export interface AlertProps extends React.HTMLAttributes<HTMLDivElement> {
-  /**
-   * The type of the alert
-   */
-  type?: keyof typeof AlertEnum
-  /**
-   * Shows icon if true
-   */
+export const WarningIcon: React.FC<IconProps> = (props) => {
+  return (
+    <svg
+      {...props}
+      fill="none"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="2"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+    >
+      <path d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+    </svg>
+  )
+}
+
+export const DangerIcon: React.FC<IconProps> = (props) => {
+  return (
+    <svg
+      {...props}
+      fill="none"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="2"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+    >
+      <path d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+    </svg>
+  )
+}
+
+export const SuccessIcon: React.FC<IconProps> = (props) => {
+  return (
+    <svg
+      {...props}
+      fill="none"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="2"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+    >
+      <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+    </svg>
+  )
+}
+
+export const NeutralIcon: React.FC<IconProps> = (props) => {
+  return (
+    <svg
+      {...props}
+      fill="none"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="2"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+    >
+      <path d="M8 12h.01M12 12h.01M16 12h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+    </svg>
+  )
+}
+
+export type AlertProps = React.HTMLAttributes<HTMLDivElement> & {
+  type?: 'success' | 'danger' | 'warning' | 'info' | 'neutral'
+  /* Shows icon if true */
   hasIcon?: boolean
-  /**
-   * If defined, shows the close icon that calls this function
-   */
+  /* If defined, shows the close icon that calls this function */
   onClose?: () => void
 }
 
-type IconProps = React.SVGAttributes<SVGElement>
-
-export const InfoIcon: React.FC<IconProps> = (props) => (
-  <svg
-    {...props}
-    fill="none"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    strokeWidth="2"
-    viewBox="0 0 24 24"
-    stroke="currentColor"
-  >
-    <path d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-  </svg>
-)
-
-export const WarningIcon: React.FC<IconProps> = (props) => (
-  <svg
-    {...props}
-    fill="none"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    strokeWidth="2"
-    viewBox="0 0 24 24"
-    stroke="currentColor"
-  >
-    <path d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-  </svg>
-)
-
-export const DangerIcon: React.FC<IconProps> = (props) => (
-  <svg
-    {...props}
-    fill="none"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    strokeWidth="2"
-    viewBox="0 0 24 24"
-    stroke="currentColor"
-  >
-    <path d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
-  </svg>
-)
-
-export const SuccessIcon: React.FC<IconProps> = (props) => (
-  <svg
-    {...props}
-    fill="none"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    strokeWidth="2"
-    viewBox="0 0 24 24"
-    stroke="currentColor"
-  >
-    <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-  </svg>
-)
-
-export const NeutralIcon: React.FC<IconProps> = (props) => (
-  <svg
-    {...props}
-    fill="none"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    strokeWidth="2"
-    viewBox="0 0 24 24"
-    stroke="currentColor"
-  >
-    <path d="M8 12h.01M12 12h.01M16 12h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-  </svg>
-)
-
-const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(props, ref) {
-  const { className, children, type = 'neutral', hasIcon = false, onClose, ...otherProps } = props
-
+const Alert: React.FC<AlertProps> = ({
+  children,
+  className = '',
+  type = 'neutral',
+  hasIcon = false,
+  onClose,
+  ...otherProps
+}) => {
   const baseStyle = styles.base
   const withIconStyle = styles.withIcon
   const withCloseStyle = styles.withClose
@@ -143,7 +143,7 @@ const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(props,
   const closeCls = classNames(iconBaseStyle, iconTypeStyle)
 
   return (
-    <div className={cls} role="alert" ref={ref} {...otherProps}>
+    <div className={cls} role="alert" {...otherProps}>
       {hasIcon ? <Icon className={iconCls} /> : null}
       {children}
       {onClose && (
@@ -161,7 +161,6 @@ const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(props,
             aria-hidden="true"
           >
             <path
-              // eslint-disable-next-line max-len
               d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
               clipRule="evenodd"
               fillRule="evenodd"
@@ -171,6 +170,6 @@ const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(props,
       )}
     </div>
   )
-})
+}
 
 export default Alert

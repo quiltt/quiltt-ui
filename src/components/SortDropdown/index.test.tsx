@@ -4,7 +4,7 @@ import { render } from '@testing-library/react'
 
 import SortDropdown from '.'
 
-export const options = [
+const options = [
   {
     description: 'Due Date',
     sortFunction: (

@@ -13,10 +13,10 @@ export type ToggleSwitchProps = React.HTMLAttributes<HTMLInputElement> & {
    * Defines the size of the input
    */
   size?: 'sm' | 'base' | 'lg'
-  onChange?: (e?: any) => void | React.Dispatch<any>
   defaultChecked?: boolean
   checked?: boolean
   label?: string
+  onChange?: (e?: any) => void | React.Dispatch<any>
 }
 
 const ToggleSwitch = React.forwardRef<HTMLInputElement, ToggleSwitchProps>(function ToggleSwitch(

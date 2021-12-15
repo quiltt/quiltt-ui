@@ -1,8 +1,7 @@
 import * as React from 'react'
 
 import classNames from 'classnames'
-
-import { CustomComponentProps, CustomComponentRefForwardingComponent } from '../../utils/components'
+import { CustomComponentProps, CustomComponentRefForwardingComponent } from 'types'
 
 import ListGroupItem from './ListGroupItem'
 import styles from './styles'

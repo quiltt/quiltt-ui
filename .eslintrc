@@ -1,19 +1,15 @@
 {
   "root": true,
-  "parser": "@typescript-eslint/parser",
-  "extends": [
-    "airbnb-typescript",
-    "plugin:@typescript-eslint/eslint-recommended",
-    "plugin:prettier/recommended"
-  ],
-  "plugins": ["simple-import-sort", "jest-dom", "@typescript-eslint"],
   "env": {
     "browser": true,
     "node": true,
-    "jest": true
+    "jest": true,
+    "es2021": true
   },
+  "parser": "@typescript-eslint/parser",
   "parserOptions": {
-    "ecmaVersion": 2020,
+    "ecmaVersion": 12,
+    "sourceType": "module",
     "ecmaFeatures": {
       "legacyDecorators": true,
       "jsx": true
@@ -25,26 +21,34 @@
       "version": "detect"
     }
   },
+  "extends": ["plugin:react/recommended", "airbnb", "plugin:prettier/recommended"],
+  "plugins": ["simple-import-sort", "react", "@typescript-eslint"],
   "rules": {
-    "max-len": [1, { "code": 100 }],
-    "space-before-function-paren": 0,
-    "react/prop-types": 0,
-    "react/jsx-handler-names": 0,
-    "react/jsx-fragments": 0,
-    "react/no-unused-prop-types": 0,
-    "react/jsx-props-no-spreading": 0,
-    "react/jsx-uses-react": "off",
-    "react/react-in-jsx-scope": "off",
-    "no-unused-vars": "off",
-    "@typescript-eslint/no-unused-vars": "error",
+    "@typescript-eslint/no-use-before-define": ["error"],
+    "@typescript-eslint/no-unused-vars": ["error", { "argsIgnorePattern": "^_" }],
+    "import/no-unresolved": ["off"],
+    "import/extensions": ["error", "never"],
+    "max-len": ["error", { "code": 100, "tabWidth": 2, "ignorePattern": "d=\"([\\s\\S]*?)\"" }],
     "no-use-before-define": "off",
-    "@typescript-eslint/no-use-before-define": "error",
-    "import/export": 0,
-    "import/prefer-default-export": 0,
-    "import/no-extraneous-dependencies": 0,
-    "import/first": "error",
-    "import/newline-after-import": "error",
-    "import/no-duplicates": "error",
+    "no-unused-vars": "off",
+    "prettier/prettier": [
+      "error",
+      {
+        "singleQuote": true,
+        "semi": false,
+        "tabWidth": 2,
+        "bracketSpacing": true,
+        "bracketSameLine": false,
+        "arrowParens": "always",
+        "trailingComma": "es5",
+        "printWidth": 100
+      }
+    ],
+    "react/function-component-definition": [0],
+    "react/jsx-filename-extension": [2, { "extensions": [".js", ".jsx", ".ts", ".tsx"] }],
+    "react/jsx-props-no-spreading": "off",
+    "react/prop-types": "off",
+    "react/require-default-props": "off",
     "simple-import-sort/imports": [
       "error",
       {
@@ -60,5 +64,19 @@
       }
     ],
     "simple-import-sort/exports": "off"
-  }
+  },
+  "globals": {
+    "React": true,
+    "expect": true,
+    "jsdom": true,
+    "JSX": true
+  },
+  "overrides": [
+    {
+      "files": ["*.test.ts", "*.test.tsx"],
+      "rules": {
+        "import/no-extraneous-dependencies": ["off"]
+      }
+    }
+  ]
 }

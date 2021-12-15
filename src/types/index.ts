@@ -1,5 +1,7 @@
 import * as React from 'react'
 
+import * as HIcons from '@heroicons/react/outline'
+
 export type Omit<T, U> = Pick<T, Exclude<keyof T, keyof U>>
 
 export type ReplaceProps<Inner extends React.ElementType, P> = Omit<
@@ -45,3 +47,12 @@ export type ColorVariants =
   | 'danger'
   | 'success'
   | 'warning'
+
+export type ColorVariantsWithLightAndDark = ColorVariants | 'light' | 'dark'
+
+export type SizeVariants = 'sm' | 'md' | 'lg'
+
+const { ...icons } = HIcons
+const iconKeys = Object.keys(icons)
+
+export type IconNames = typeof iconKeys[number]

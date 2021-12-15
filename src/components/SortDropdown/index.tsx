@@ -1,8 +1,8 @@
 import * as React from 'react'
 
 import { ChevronDownIcon } from '@heroicons/react/outline'
+import { ColorVariants } from 'types'
 
-import { ColorVariants } from '../../utils/components'
 import Button from '../Button'
 import Dropdown from '../Dropdown'
 

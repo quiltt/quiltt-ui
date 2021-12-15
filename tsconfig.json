@@ -17,9 +17,6 @@
     "noUnusedParameters": true,
     "allowSyntheticDefaultImports": true,
     "baseUrl": "./src/",
-    // "paths": {
-    //   "*": ["./src/*"]
-    // },
     "target": "es5",
     "allowJs": true,
     "skipLibCheck": true,

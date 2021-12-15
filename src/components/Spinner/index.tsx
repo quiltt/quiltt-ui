@@ -1,20 +1,16 @@
 import * as React from 'react'
 
 import classNames from 'classnames'
+import { ColorVariants, SizeVariants } from 'types'
 
 import styles from './styles'
 
-export type SpinnerColor = 'primary' | 'secondary' | 'light' | 'dark'
-
 export type SpinnerKind = 'centered' | 'overlay' | 'inline'
 
-export type SpinnerSize = 'lg' | 'md' | 'sm'
-
 type SpinnerProps = {
-  color?: SpinnerColor
+  color?: ColorVariants
+  size?: SizeVariants
   kind?: SpinnerKind
-  message?: string
-  size?: SpinnerSize
   style?: React.CSSProperties
   className?: string
 }

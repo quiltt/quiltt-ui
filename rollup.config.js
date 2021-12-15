@@ -1,5 +1,5 @@
 /* eslint-disable global-require */
-import babel from '@rollup/plugin-babel'
+import swc from 'rollup-plugin-swc'
 import typescript from 'rollup-plugin-typescript2'
 import commonjs from '@rollup/plugin-commonjs'
 import external from 'rollup-plugin-peer-deps-external'
@@ -31,23 +31,29 @@ export default {
     },
   ],
   plugins: [
-    babel({
-      presets: ['@babel/preset-env', '@babel/preset-typescript', '@babel/preset-react'],
-      extensions: ['.js', '.ts', 'tsx', 'jsx'],
-      babelHelpers: 'runtime',
-      exclude: /node_modules/,
-      plugins: [['@babel/transform-runtime', { regenerator: false, useESModules: false }]],
-    }),
     postcss({
       modules: false,
       minimize: true,
       extract: true,
       plugins: [
         require('postcss-import'),
-        require('postcss-nested'),
+        require('tailwindcss/nesting'),
         require('tailwindcss'),
         require('autoprefixer'),
       ],
+    }),
+    swc({
+      jsc: {
+        parser: {
+          syntax: 'typescript',
+          jsx: true,
+          tsx: true,
+        },
+        target: 'es2018',
+        keepClassNames: true,
+      },
+      sourceMaps: true,
+      minify: true,
     }),
     external({
       includeDependencies: true,
@@ -56,6 +62,8 @@ export default {
       typescript: typescriptEngine,
       include: ['*.js+(|x)', '**/*.js+(|x)'],
       exclude: [
+        '.github',
+        '.husky',
         'coverage',
         'dist',
         'node_modules/**',

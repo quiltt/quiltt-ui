@@ -8,14 +8,12 @@ import Form from '.'
 
 const FormExample: React.FC = () => {
   return (
-    <Form>
-      <Form.Group controlId="formEmail">
-        <Form.Label>Email</Form.Label>
-
-        <Form.Input name="email" type="text" placeholder="Enter your Email" />
-
-        <Form.Input.Feedback type="invalid">Please enter a valid email</Form.Input.Feedback>
-      </Form.Group>
+    <Form
+      onSubmit={async (values) => {
+        console.log(values)
+      }}
+    >
+      <Form.Input label="Email" name="email" type="text" placeholder="Enter your Email" />
 
       <Button block variant="primary" type="submit">
         Next
