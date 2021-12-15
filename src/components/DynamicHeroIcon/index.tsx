@@ -1,7 +1,8 @@
 import * as React from 'react'
 
 import * as HIcons from '@heroicons/react/outline'
-import { IconNames } from 'types'
+
+import { IconNames } from '../../types'
 
 type DynamicHeroIconProps = { icon: IconNames; className?: string }
 

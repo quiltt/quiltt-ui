@@ -3,8 +3,8 @@ import { Controller, useForm, useFormContext } from 'react-hook-form'
 
 import { Listbox, Transition } from '@headlessui/react'
 import classNames from 'classnames'
-import { SizeVariants } from 'types'
 
+import { SizeVariants } from '../../types'
 import DynamicHeroIcon from '../DynamicHeroIcon'
 
 import styles from './styles'

@@ -1,7 +1,12 @@
 import * as React from 'react'
 
 import classNames from 'classnames'
-import { ColorVariants, CustomComponentProps, CustomComponentRefForwardingComponent } from 'types'
+
+import {
+  ColorVariants,
+  CustomComponentProps,
+  CustomComponentRefForwardingComponent,
+} from '../../types'
 
 import styles from './styles'
 

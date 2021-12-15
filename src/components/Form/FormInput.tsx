@@ -2,8 +2,8 @@ import * as React from 'react'
 import { useFormContext } from 'react-hook-form'
 
 import classNames from 'classnames'
-import { IconNames, SizeVariants } from 'types'
 
+import { IconNames, SizeVariants } from '../../types'
 import DynamicHeroIcon from '../DynamicHeroIcon'
 
 import styles from './styles'
@@ -48,12 +48,12 @@ const FormInput = React.forwardRef<HTMLInputElement, FormInputProps>(
     const leftIconClasses = classNames(
       iconClasses,
       styles.input[size],
-      `border-r-0 rounded-l-${size}`
+      `border-r-0 rounded-${size} rounded-l-${size} rounded-r-none`
     )
     const rightIconClasses = classNames(
       iconClasses,
       styles.input[size],
-      `border-l-0 rounded-r-${size}`
+      `border-l-0 rounded-${size} rounded-r-${size} rounded-l-none`
     )
 
     const isDisabled = disabled || isSubmitting
@@ -73,7 +73,7 @@ const FormInput = React.forwardRef<HTMLInputElement, FormInputProps>(
     const baseStyles = isText ? 'base' : type
     const labelBaseStyles = isCheckboxOrRadio ? 'check' : `base`
 
-    const labelCls = classNames(styles.input[labelBaseStyles], isDisabled && styles.label.disabled)
+    const labelCls = classNames(styles.label[labelBaseStyles], isDisabled && styles.label.disabled)
 
     const errorFeedbackCls = classNames(styles.feedback.base, styles.feedback.invalid)
 
@@ -104,8 +104,8 @@ const FormInput = React.forwardRef<HTMLInputElement, FormInputProps>(
               <input
                 className={classNames(
                   cls,
-                  leftIcon && `border-l-0 rounded-l-none rounded-r-${size}`,
-                  rightIcon && `border-r-0 rounded-r-none rounded-l-${size}`
+                  leftIcon && `border-l-0 rounded-r-${size} rounded-${size} rounded-l-none`,
+                  rightIcon && `border-r-0 rounded-l-${size} rounded-${size} rounded-r-none`
                 )}
                 disabled={isDisabled}
                 {...register(name)}

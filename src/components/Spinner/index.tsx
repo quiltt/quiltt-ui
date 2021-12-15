@@ -1,7 +1,8 @@
 import * as React from 'react'
 
 import classNames from 'classnames'
-import { ColorVariants, SizeVariants } from 'types'
+
+import { ColorVariants, SizeVariants } from '../../types'
 
 import styles from './styles'
 
