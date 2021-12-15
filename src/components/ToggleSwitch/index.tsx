@@ -1,68 +1,63 @@
 import * as React from 'react'
 
+import { Switch } from '@headlessui/react'
 import classNames from 'classnames'
+import { SizeVariants } from 'types'
 
 import styles from './styles'
 
-export type ToggleSwitchProps = React.HTMLAttributes<HTMLInputElement> & {
-  /**
-   * Defines if the input is disabled
-   */
+export type ToggleSwitchProps = React.HTMLAttributes<HTMLButtonElement> & {
   disabled?: boolean
-  /**
-   * Defines the size of the input
-   */
-  size?: 'sm' | 'base' | 'lg'
+  size?: SizeVariants
   defaultChecked?: boolean
-  checked?: boolean
   label?: string
   onChange?: (e?: any) => void | React.Dispatch<any>
 }
 
-const ToggleSwitch = React.forwardRef<HTMLInputElement, ToggleSwitchProps>(function ToggleSwitch(
+const ToggleSwitch = React.forwardRef<HTMLButtonElement, ToggleSwitchProps>(function ToggleSwitch(
   props,
   ref
 ) {
   const {
     defaultChecked = false,
-    checked,
     size = 'base',
     disabled = false,
     label,
     onChange,
     ...otherProps
   } = props
+  const [enabled, setEnabled] = React.useState(defaultChecked)
 
   const sizeStyles = styles.size[size]
-  const checkedStyles = checked ? styles.checked : styles.unchecked
+  const checkedStyles = enabled ? styles.checked : styles.unchecked
   const switchSizeStyles = styles.switch.size[size]
   const switchTranslateStyles = styles.switch.translate[size]
-  const switchCheckedStyles = checked ? switchTranslateStyles : 'translate-x-0'
+  const switchEnabledStyles = enabled ? switchTranslateStyles : 'translate-x-1'
 
   const baseStyles = classNames(styles.base, sizeStyles, checkedStyles)
-  const switchStyles = classNames(styles.switch.base, switchSizeStyles, switchCheckedStyles)
+  const switchStyles = classNames(styles.switch.base, switchSizeStyles, switchEnabledStyles)
+
+  const handleChange = (e: any) => {
+    if (onChange) {
+      onChange(e)
+    }
+    setEnabled(!enabled)
+  }
 
   return (
-    <div className="relative toggle-switch">
-      <input
-        type="checkbox"
-        className="sr-only"
-        onChange={onChange}
-        checked={checked}
-        tabIndex={disabled ? -1 : 1}
-        ref={ref}
-        defaultChecked={defaultChecked}
-        {...otherProps}
-      />
-      <div className="flex items-center justify-center">
-        <span className="sr-only">{label}</span>
-        <div className={baseStyles}>
-          <span className={switchStyles}>
-            <span className="sr-only">{checked ? 'Yes' : 'No'}</span>
-          </span>
-        </div>
-      </div>
-    </div>
+    <Switch
+      checked={enabled}
+      onChange={handleChange}
+      disabled={disabled}
+      className={baseStyles}
+      ref={ref}
+      {...otherProps}
+    >
+      <span className="sr-only">{label}</span>
+      <span className={switchStyles}>
+        <span className="sr-only">{enabled ? 'Yes' : 'No'}</span>
+      </span>
+    </Switch>
   )
 })
 
