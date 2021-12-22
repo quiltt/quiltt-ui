@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { useFormContext } from 'react-hook-form'
+import { useFormContext, UseFormRegisterReturn } from 'react-hook-form'
 
 import classNames from 'classnames'
 
@@ -16,6 +16,7 @@ export type FormInputProps = React.PropsWithoutRef<JSX.IntrinsicElements['input'
   leftIcon?: IconNames
   rightIcon?: IconNames
   disabled?: boolean
+  customRegister?: UseFormRegisterReturn
   outerProps?: React.PropsWithoutRef<JSX.IntrinsicElements['div']>
 }
 
@@ -29,6 +30,7 @@ const FormInput = React.forwardRef<HTMLInputElement, FormInputProps>(
       leftIcon = undefined,
       rightIcon = undefined,
       disabled = false,
+      customRegister = undefined,
       outerProps,
       ...otherProps
     },
@@ -77,6 +79,8 @@ const FormInput = React.forwardRef<HTMLInputElement, FormInputProps>(
 
     const errorFeedbackCls = classNames(styles.feedback.base, styles.feedback.invalid)
 
+    const inputProps = customRegister ? { ...customRegister } : { ...register(name) }
+
     const cls = classNames(
       styles.input[baseStyles],
       isCheckboxOrRadio && styles.input.radioCheckboxBase,
@@ -108,7 +112,7 @@ const FormInput = React.forwardRef<HTMLInputElement, FormInputProps>(
                   rightIcon && `border-r-0 rounded-l-${size} rounded-${size} rounded-r-none`
                 )}
                 disabled={isDisabled}
-                {...register(name)}
+                {...inputProps}
                 {...otherProps}
               />
               {rightIcon && (
@@ -121,7 +125,7 @@ const FormInput = React.forwardRef<HTMLInputElement, FormInputProps>(
             <input
               className={classNames(cls, `rounded-${size}`)}
               disabled={isDisabled}
-              {...register(name)}
+              {...inputProps}
               {...otherProps}
             />
           )}
