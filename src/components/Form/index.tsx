@@ -20,6 +20,10 @@ export interface FormProps<S extends z.ZodType<any, any>>
   initialValues?: UseFormProps<z.infer<S>>['defaultValues']
   /** Text to display in the submit button (Defaults to 'Submit') */
   submitText?: string
+  /** Disables the submit button */
+  disabled?: boolean
+  /** Use a custom submit button (for instance in a multi-step form) */
+  useCustomSubmitButton?: boolean
   onSubmit: (values: z.infer<S>) => Promise<void | OnSubmitResult>
 }
 
@@ -34,8 +38,10 @@ const Form = <S extends z.ZodType<any, any>>({
   children,
   schema,
   initialValues,
-  submitText = 'Submit',
   className = '',
+  submitText = 'Submit',
+  disabled = false,
+  useCustomSubmitButton = false,
   onSubmit,
   ...props
 }: FormProps<S>) => {
@@ -47,6 +53,9 @@ const Form = <S extends z.ZodType<any, any>>({
   const [formError, setFormError] = React.useState<string | null>(null)
 
   const cls = classNames('form', className)
+
+  const isLoading = ctx.formState.isSubmitting
+  const isDisabled = disabled || isLoading
 
   return (
     <FormProvider {...ctx}>
@@ -77,9 +86,9 @@ const Form = <S extends z.ZodType<any, any>>({
           </div>
         )}
 
-        {submitText && (
-          <Button type="submit" disabled={ctx.formState.isSubmitting} block>
-            {ctx.formState.isSubmitting ? <Spinner size="sm" color="light" /> : submitText}
+        {!useCustomSubmitButton && submitText && (
+          <Button type="submit" disabled={isDisabled} block>
+            {isLoading ? <Spinner size="sm" color="light" /> : submitText}
           </Button>
         )}
       </form>

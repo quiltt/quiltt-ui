@@ -12,7 +12,7 @@ export type FormInputProps = React.PropsWithoutRef<JSX.IntrinsicElements['input'
   name: string
   label?: string
   size?: SizeVariants
-  type?: 'text' | 'password' | 'email' | 'number' | 'tel' | 'url' | 'checkbox' | 'radio'
+  type?: 'text' | 'password' | 'email' | 'number' | 'date' | 'tel' | 'url' | 'checkbox' | 'radio'
   leftIcon?: IconNames
   rightIcon?: IconNames
   disabled?: boolean

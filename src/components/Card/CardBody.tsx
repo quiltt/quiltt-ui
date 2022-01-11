@@ -7,11 +7,11 @@ import styles from './styles'
 export interface CardBodyProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 const CardBody = React.forwardRef<HTMLDivElement, CardBodyProps>(function CardBody(props, ref) {
-  const { className, children, ...otherProps } = props
+  const { className = '', children, ...otherProps } = props
 
-  const baseStyle = styles.cardBody.base
+  const cardBodyStyles = className || styles.cardBody.base
 
-  const cls = classNames('card-body', baseStyle, className)
+  const cls = classNames('card-body', cardBodyStyles)
 
   return (
     <div className={cls} ref={ref} {...otherProps}>

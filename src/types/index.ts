@@ -56,3 +56,5 @@ const { ...icons } = HIcons
 const iconKeys = Object.keys(icons)
 
 export type IconNames = typeof iconKeys[number]
+
+export type { SelectOption } from '../components/Form/FormSelect'
