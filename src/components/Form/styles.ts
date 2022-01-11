@@ -1,7 +1,7 @@
 /* eslint-disable max-len */
 export default {
   label: {
-    base: 'flex flex-col w-full font-medium block text-sm text-gray-700 dark:text-gray-400',
+    base: 'flex flex-col w-full font-medium text-sm text-gray-700 dark:text-gray-400',
     // check and radio get this same style
     check: 'inline-flex items-center',
     disabled: 'opacity-50 cursor-not-allowed',
@@ -28,7 +28,7 @@ export default {
   },
   // Select
   select: {
-    base: 'block w-full dark:text-gray-300 focus:outline-none leading-5 border-gray-300 dark:border-gray-600',
+    base: 'relative block w-full dark:text-gray-300 focus:outline-none appearance-none border leading-5 border-gray-300 dark:border-gray-600',
     sm: 'h-8 text-sm rounded-sm',
     md: 'h-10 text-base rounded-md',
     lg: 'h-12 text-lg rounded-lg',

@@ -15,13 +15,14 @@ export type SelectOption = {
   disabled?: boolean
 }
 
-type SelectProps = {
+type SelectProps = React.PropsWithoutRef<JSX.IntrinsicElements['button']> & {
   name: string
   size?: SizeVariants
   options: SelectOption[]
   selectedOption?: SelectOption
   label?: string
   disabled?: boolean
+  outerProps?: React.PropsWithoutRef<JSX.IntrinsicElements['div']>
   onChange?: (e: SelectOption) => void
 }
 
@@ -32,14 +33,17 @@ const Select: React.FC<SelectProps> = ({
   selectedOption = options[0],
   label = 'Select an option',
   disabled = false,
+  outerProps,
   onChange = (e) => {
     // eslint-disable-next-line no-console
     console.log(e)
   },
+  ...otherProps
 }) => {
   const [currentSelection, setCurrentSelection] = React.useState(options[0])
   const { control } = useForm()
   const {
+    // Not calling `register` again `Controller` component handles the registration process
     formState: { isSubmitting, errors },
   } = useFormContext()
   const error = Array.isArray(errors[name])
@@ -88,14 +92,18 @@ const Select: React.FC<SelectProps> = ({
           <Listbox value={currentSelection} onChange={handleChange}>
             {({ open }) => (
               <>
-                <Listbox.Label className={labelCls}>{label}</Listbox.Label>
-                <div className="relative mt-1">
-                  <Listbox.Button className={cls}>
-                    <span className="block truncate">{currentSelection.label}</span>
-                    <span className={iconCls}>
-                      <DynamicHeroIcon icon="SelectorIcon" className="w-5 h-5 text-gray-400" />
-                    </span>
-                  </Listbox.Button>
+                <div {...outerProps} className="relative">
+                  <Listbox.Label className={labelCls}>
+                    {label}
+                    <Listbox.Button className={cls} {...otherProps}>
+                      <span className="block px-2 text-left truncate">
+                        {currentSelection.label}
+                      </span>
+                      <span className={iconCls}>
+                        <DynamicHeroIcon icon="SelectorIcon" className="w-5 h-5 text-gray-400" />
+                      </span>
+                    </Listbox.Button>
+                  </Listbox.Label>
 
                   <Transition
                     show={open}
