@@ -14,16 +14,10 @@ export type FormTextareaProps = React.PropsWithoutRef<JSX.IntrinsicElements['tex
 }
 
 const FormTextarea = React.forwardRef<HTMLTextAreaElement, FormTextareaProps>(
-  function FormTextarea({
-    name,
-    label,
-    disabled,
-    className,
-    children,
-    customRegister,
-    outerProps,
-    ...otherProps
-  }) {
+  (
+    { name, label, disabled, className, children, customRegister, outerProps, ...otherProps },
+    _ref
+  ) => {
     const {
       register,
       formState: { isSubmitting, errors },

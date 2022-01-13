@@ -14,6 +14,7 @@ const FormExample: React.FC = () => {
       }}
     >
       <Form.Input label="Email" name="email" type="text" placeholder="Enter your Email" />
+      <Form.Textarea label="Text Area" name="textarea" placeholder="Start typing here..." />
 
       <Button block variant="primary" type="submit">
         Next
