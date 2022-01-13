@@ -16,7 +16,7 @@ export type SelectOption = {
   disabled?: boolean
 }
 
-type SelectProps = React.PropsWithoutRef<JSX.IntrinsicElements['button']> & {
+type FormSelectProps = React.PropsWithoutRef<JSX.IntrinsicElements['button']> & {
   name: string
   size?: SizeVariants
   options: SelectOption[]
@@ -27,7 +27,7 @@ type SelectProps = React.PropsWithoutRef<JSX.IntrinsicElements['button']> & {
   onChange?: (e: SelectOption) => void
 }
 
-const Select: React.FC<SelectProps> = ({
+const FormSelect: React.FC<FormSelectProps> = ({
   name,
   size = 'md',
   options,
@@ -168,4 +168,4 @@ const Select: React.FC<SelectProps> = ({
   )
 }
 
-export default Select
+export default FormSelect
