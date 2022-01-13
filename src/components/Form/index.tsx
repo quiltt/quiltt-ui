@@ -8,6 +8,7 @@ import { z } from 'zod'
 import Button from '../Button'
 import Spinner from '../Spinner'
 
+import FormErrorMessage from './FormErrorMessage'
 import FormInput from './FormInput'
 import FormSelect from './FormSelect'
 import FormTextarea from './FormTextarea'
@@ -102,4 +103,5 @@ export default Object.assign(Form, {
   Input: FormInput,
   Select: FormSelect,
   Textarea: FormTextarea,
+  ErrorMessage: FormErrorMessage,
 })

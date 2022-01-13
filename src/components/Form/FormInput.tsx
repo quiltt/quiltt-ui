@@ -6,6 +6,7 @@ import classNames from 'classnames'
 import { IconNames, SizeVariants } from '../../types'
 import DynamicHeroIcon from '../DynamicHeroIcon'
 
+import FormErrorMessage from './FormErrorMessage'
 import styles from './styles'
 
 export type FormInputProps = React.PropsWithoutRef<JSX.IntrinsicElements['input']> & {
@@ -77,8 +78,6 @@ const FormInput = React.forwardRef<HTMLInputElement, FormInputProps>(
 
     const labelCls = classNames(styles.label[labelBaseStyles], isDisabled && styles.label.disabled)
 
-    const errorFeedbackCls = classNames(styles.feedback.base, styles.feedback.invalid)
-
     const inputProps = customRegister ? { ...customRegister } : { ...register(name) }
 
     const cls = classNames(
@@ -131,11 +130,7 @@ const FormInput = React.forwardRef<HTMLInputElement, FormInputProps>(
           )}
         </label>
 
-        {error && (
-          <div role="alert" className={errorFeedbackCls}>
-            {error}
-          </div>
-        )}
+        <FormErrorMessage name={name} />
       </div>
     )
   }

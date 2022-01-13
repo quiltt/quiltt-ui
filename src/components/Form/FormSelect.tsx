@@ -7,6 +7,7 @@ import classNames from 'classnames'
 import { SizeVariants } from '../../types'
 import DynamicHeroIcon from '../DynamicHeroIcon'
 
+import FormErrorMessage from './FormErrorMessage'
 import styles from './styles'
 
 export type SelectOption = {
@@ -80,7 +81,6 @@ const Select: React.FC<SelectProps> = ({
   const iconCls = classNames(styles.select.icon)
   const optionListCls = classNames(styles.select.options.list)
   const optionItemCls = classNames(styles.select.options.item)
-  const errorFeedbackCls = classNames(styles.feedback.base, styles.feedback.invalid)
 
   return (
     <Controller
@@ -158,11 +158,7 @@ const Select: React.FC<SelectProps> = ({
                     </Listbox.Options>
                   </Transition>
                 </div>
-                {error && (
-                  <div role="alert" className={errorFeedbackCls}>
-                    {error}
-                  </div>
-                )}
+                <FormErrorMessage name={name} />
               </>
             )}
           </Listbox>

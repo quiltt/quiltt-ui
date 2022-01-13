@@ -1,54 +1,69 @@
 import * as React from 'react'
+import { useFormContext, UseFormRegisterReturn } from 'react-hook-form'
 
 import classNames from 'classnames'
 
+import FormErrorMessage from './FormErrorMessage'
 import styles from './styles'
 
-export interface FormTextareaProps extends React.ComponentPropsWithRef<'textarea'> {
-  /**
-   * Defines the color of the Formtextarea
-   */
-  valid?: boolean
+export type FormTextareaProps = React.PropsWithoutRef<JSX.IntrinsicElements['textarea']> & {
+  name: string
+  label?: string
+  customRegister?: UseFormRegisterReturn
+  outerProps?: React.PropsWithoutRef<JSX.IntrinsicElements['div']>
 }
 
-const FormTextarea = React.forwardRef<HTMLTextAreaElement, FormTextareaProps>(function FormTextarea(
-  props,
-  ref
-) {
-  const { valid, disabled, className, children, ...otherProps } = props
+const FormTextarea = React.forwardRef<HTMLTextAreaElement, FormTextareaProps>(
+  function FormTextarea({
+    name,
+    label,
+    disabled,
+    className,
+    children,
+    customRegister,
+    outerProps,
+    ...otherProps
+  }) {
+    const {
+      register,
+      formState: { isSubmitting, errors },
+    } = useFormContext()
+    const error = Array.isArray(errors[name])
+      ? errors[name].join(', ')
+      : errors[name]?.message || errors[name]
 
-  const baseStyle = styles.textarea.base
-  const activeStyle = styles.textarea.active
-  const disabledStyle = styles.textarea.disabled
-  const validStyle = styles.textarea.valid
-  const invalidStyle = styles.textarea.invalid
+    const isDisabled = disabled || isSubmitting
 
-  function hasValidation() {
-    return valid !== undefined
+    const isValid = !error && !disabled && isSubmitting
+
+    const textareaProps = customRegister ? { ...customRegister } : { ...register(name) }
+
+    const labelCls = classNames(styles.label.base, isDisabled && styles.label.disabled)
+
+    const cls = classNames(
+      styles.textarea.base,
+      !isValid && !disabled && styles.textarea.active, // No activeStyle if has valid or disabled
+      !isValid && disabled && styles.textarea.disabled, // No disabledStyle if has valid
+      isValid ? styles.textarea.valid : styles.textarea.invalid,
+      className
+    )
+
+    return (
+      <div {...outerProps} className="relative">
+        <label className={labelCls} htmlFor={name}>
+          {label ? (
+            <span className="text-sm text-gray-700">{label}</span>
+          ) : (
+            <span className="sr-only">{name}</span>
+          )}
+          <textarea className={cls} disabled={disabled} {...textareaProps} {...otherProps}>
+            {children}
+          </textarea>
+        </label>
+        <FormErrorMessage name={name} />
+      </div>
+    )
   }
-
-  function validationStyle(): string {
-    if (hasValidation()) {
-      return valid ? validStyle : invalidStyle
-    }
-    return ''
-  }
-
-  const cls = classNames(
-    baseStyle,
-    // don't apply activeStyle if has valid or disabled
-    !hasValidation() && !disabled && activeStyle,
-    // don't apply disabledStyle if has valid
-    !hasValidation() && disabled && disabledStyle,
-    validationStyle(),
-    className
-  )
-
-  return (
-    <textarea className={cls} ref={ref} disabled={disabled} {...otherProps}>
-      {children}
-    </textarea>
-  )
-})
+)
 
 export default FormTextarea
