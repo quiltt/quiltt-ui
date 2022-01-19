@@ -55,8 +55,9 @@ const Form = <S extends z.ZodType<any, any>>({
 
   const cls = classNames('form', className)
 
-  const isLoading = ctx.formState.isSubmitting
-  const isDisabled = disabled || isLoading
+  const { isValid, isSubmitting } = ctx.formState
+  const isLoading = isSubmitting
+  const isDisabled = disabled || isLoading || !isValid
 
   return (
     <FormProvider {...ctx}>
