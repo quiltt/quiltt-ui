@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { FormProvider, Path, useForm, UseFormProps } from 'react-hook-form'
+import { FormProvider, Path, useForm, UseFormProps, ValidationMode } from 'react-hook-form'
 
 import { zodResolver } from '@hookform/resolvers/zod'
 import classNames from 'classnames'
@@ -20,12 +20,6 @@ interface OnSubmitResult {
 
 export const FORM_ERROR = 'FORM_ERROR'
 
-export enum FormMode {
-  OnChange = 'onChange',
-  OnBlur = 'onBlur',
-  OnSubmit = 'onSubmit',
-}
-
 export interface FormProps<S extends z.ZodType<any, any>>
   extends Omit<React.PropsWithoutRef<JSX.IntrinsicElements['form']>, 'onSubmit'> {
   /** Form fields as children */
@@ -39,7 +33,7 @@ export interface FormProps<S extends z.ZodType<any, any>>
   disabled?: boolean
   /** Use a custom submit button (for instance in a multi-step form) */
   useCustomSubmitButton?: boolean
-  mode?: FormMode
+  mode?: keyof ValidationMode
   onSubmit: (values: z.infer<S>) => Promise<void | OnSubmitResult>
 }
 
@@ -51,7 +45,7 @@ const Form = <S extends z.ZodType<any, any>>({
   submitText = 'Submit',
   disabled = false,
   useCustomSubmitButton = false,
-  mode = FormMode.OnBlur,
+  mode = 'onBlur' as keyof ValidationMode,
   onSubmit,
   ...props
 }: FormProps<S>) => {
@@ -66,8 +60,7 @@ const Form = <S extends z.ZodType<any, any>>({
 
   const { isValid, isSubmitting } = ctx.formState
   const isLoading = isSubmitting
-  const isDisabled =
-    mode === FormMode.OnChange ? disabled || isLoading || !isValid : disabled || isLoading
+  const isDisabled = mode === 'onChange' ? disabled || isLoading || !isValid : disabled || isLoading
 
   return (
     <FormProvider {...ctx}>
