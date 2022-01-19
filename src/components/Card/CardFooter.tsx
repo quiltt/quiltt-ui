@@ -11,7 +11,7 @@ export interface CardFooterProps extends React.HTMLAttributes<HTMLDivElement> {
   colored?: boolean
 }
 
-const CardFooter = React.forwardRef<HTMLDivElement, CardFooterProps>(function Card(props, ref) {
+const CardFooter = React.forwardRef<HTMLDivElement, CardFooterProps>((props, ref) => {
   const { className, children, colored = false, ...otherProps } = props
 
   const baseStyle = styles.cardFooter.base

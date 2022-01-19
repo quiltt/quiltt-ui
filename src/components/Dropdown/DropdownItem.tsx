@@ -6,7 +6,7 @@ import Button from '../Button'
 import styles from './styles'
 
 type Ref = typeof Button
-const DropdownItem = React.forwardRef<Ref, ButtonProps>(function DropdownItem(props, ref) {
+const DropdownItem = React.forwardRef<Ref, ButtonProps>((props, ref) => {
   // Note: className is passed to the inner Button
   const { children, ...otherProps } = props
 

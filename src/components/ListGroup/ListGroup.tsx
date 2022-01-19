@@ -17,7 +17,7 @@ type Ref = React.ReactNode | HTMLElement | string
 const ListGroup: CustomComponentRefForwardingComponent<'ul', ListGroupProps> = React.forwardRef<
   Ref,
   ListGroupProps
->(function ListGroup(props, ref) {
+>((props, ref) => {
   const { as = 'ul', variant = 'default', className, children, ...otherProps } = props
 
   const baseStyle = styles.listGroup.base

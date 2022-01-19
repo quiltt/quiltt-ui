@@ -35,7 +35,7 @@ type Ref = React.ReactNode | HTMLElement | string
 const Button: CustomComponentRefForwardingComponent<'button', ButtonProps> = React.forwardRef<
   Ref,
   ButtonProps
->(function Button(props, ref) {
+>((props, ref) => {
   const {
     as = 'button',
     type = as === 'button' ? 'button' : undefined, // anchor tags should not contain type attribute
@@ -86,7 +86,7 @@ const Button: CustomComponentRefForwardingComponent<'button', ButtonProps> = Rea
     sm: styles.size.icon.sm,
     pagination: styles.size.icon.base,
   }
-  const iconStyle = styles.icon[size]
+  const iconStyle = styles.icon[size] as string
   const layoutStyles = {
     solid: styles.variants.solid[variant].base,
     outline: styles.variants.outline[variant].base,

@@ -1,9 +1,9 @@
 import * as React from 'react'
-import { FormProvider, useForm, UseFormProps } from 'react-hook-form'
+import { FormProvider, Path, useForm, UseFormProps } from 'react-hook-form'
 
 import { zodResolver } from '@hookform/resolvers/zod'
 import classNames from 'classnames'
-import { z } from 'zod'
+import { TypeOf, z } from 'zod'
 
 import Button from '../Button'
 import Spinner from '../Spinner'
@@ -13,27 +13,35 @@ import FormInput from './FormInput'
 import FormSelect from './FormSelect'
 import FormTextarea from './FormTextarea'
 
-export interface FormProps<S extends z.ZodType<any, any>>
-  extends Omit<React.PropsWithoutRef<JSX.IntrinsicElements['form']>, 'onSubmit'> {
-  /** All your form fields as children */
-  children?: React.ReactNode
-  schema?: S
-  initialValues?: UseFormProps<z.infer<S>>['defaultValues']
-  /** Text to display in the submit button (Defaults to 'Submit') */
-  submitText?: string
-  /** Disables the submit button */
-  disabled?: boolean
-  /** Use a custom submit button (for instance in a multi-step form) */
-  useCustomSubmitButton?: boolean
-  onSubmit: (values: z.infer<S>) => Promise<void | OnSubmitResult>
-}
-
 interface OnSubmitResult {
   FORM_ERROR?: string
   [prop: string]: any
 }
 
 export const FORM_ERROR = 'FORM_ERROR'
+
+export enum FormMode {
+  OnChange = 'onChange',
+  OnBlur = 'onBlur',
+  OnSubmit = 'onSubmit',
+}
+
+export interface FormProps<S extends z.ZodType<any, any>>
+  extends Omit<React.PropsWithoutRef<JSX.IntrinsicElements['form']>, 'onSubmit'> {
+  /** Form fields as children */
+  children?: React.ReactNode
+  /** Zod form schema for validations */
+  schema?: S
+  initialValues?: UseFormProps<z.infer<S>>['defaultValues']
+  /** Text to display in the submit button (Defaults to 'Submit') */
+  submitText?: string
+  /** Disables the submit button if needs manual control */
+  disabled?: boolean
+  /** Use a custom submit button (for instance in a multi-step form) */
+  useCustomSubmitButton?: boolean
+  mode?: FormMode
+  onSubmit: (values: z.infer<S>) => Promise<void | OnSubmitResult>
+}
 
 const Form = <S extends z.ZodType<any, any>>({
   children,
@@ -43,11 +51,12 @@ const Form = <S extends z.ZodType<any, any>>({
   submitText = 'Submit',
   disabled = false,
   useCustomSubmitButton = false,
+  mode = FormMode.OnBlur,
   onSubmit,
   ...props
 }: FormProps<S>) => {
   const ctx = useForm<z.infer<S>>({
-    mode: 'onBlur',
+    mode,
     resolver: schema ? zodResolver(schema) : undefined,
     defaultValues: initialValues,
   })
@@ -57,21 +66,21 @@ const Form = <S extends z.ZodType<any, any>>({
 
   const { isValid, isSubmitting } = ctx.formState
   const isLoading = isSubmitting
-  const isDisabled = disabled || isLoading || !isValid
+  const isDisabled =
+    mode === FormMode.OnChange ? disabled || isLoading || !isValid : disabled || isLoading
 
   return (
     <FormProvider {...ctx}>
       <form
         onSubmit={ctx.handleSubmit(async (values) => {
           const result = (await onSubmit(values)) || {}
-          // eslint-disable-next-line no-restricted-syntax
           for (const [key, value] of Object.entries(result)) {
             if (key === FORM_ERROR) {
-              setFormError(value)
+              setFormError(value as string)
             } else {
-              ctx.setError(key as any, {
+              ctx.setError(key as Path<TypeOf<S>>, {
                 type: 'submit',
-                message: value,
+                message: value as string,
               })
             }
           }

@@ -33,7 +33,7 @@ type Ref = React.ReactNode | HTMLElement | string
 const Heading: CustomComponentRefForwardingComponent<'h1', HeadingProps> = React.forwardRef<
   Ref,
   HeadingProps
->(function Heading(props, ref) {
+>((props, ref) => {
   const {
     as = 'h1',
     size = 'md',
@@ -77,7 +77,7 @@ const Heading: CustomComponentRefForwardingComponent<'h1', HeadingProps> = React
 
   const HeadingStyles = classNames(
     baseStyle,
-    hasIcon() && !children && iconSizeStyles[size], // has icon but no children
+    hasIcon() && !children && (iconSizeStyles[size] as string), // has icon but no children
     hasIcon() && children && sizeStyles[size], // has icon and children
     !hasIcon() && sizeStyles[size], // does not have icon
     block ? blockStyle : null,

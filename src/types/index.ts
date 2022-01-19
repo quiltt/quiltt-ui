@@ -1,6 +1,7 @@
 import * as React from 'react'
 
 import * as HIcons from '@heroicons/react/outline'
+import type { SelectOption as SelectOptionType } from '../components/Form/FormSelect'
 
 export type Omit<T, U> = Pick<T, Exclude<keyof T, keyof U>>
 
@@ -57,4 +58,4 @@ const iconKeys = Object.keys(icons)
 
 export type IconNames = typeof iconKeys[number]
 
-export type { SelectOption } from '../components/Form/FormSelect'
+export type { SelectOptionType as SelectOption }

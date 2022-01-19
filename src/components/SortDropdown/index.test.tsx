@@ -10,21 +10,16 @@ const options = [
     sortFunction: (
       a: { nextPaymentDate: string | number | Date },
       b: { nextPaymentDate: string | number | Date }
-    ) => {
-      return Math.abs(new Date(a.nextPaymentDate).getTime() - new Date(b.nextPaymentDate).getTime())
-    },
+    ) => Math.abs(new Date(a.nextPaymentDate).getTime() - new Date(b.nextPaymentDate).getTime()),
   },
   {
     description: 'Name',
-    sortFunction: (a: { name: number }, b: { name: number }) => {
-      return a.name < b.name ? -1 : Number(a.name > b.name)
-    },
+    sortFunction: (a: { name: number }, b: { name: number }) =>
+      a.name < b.name ? -1 : Number(a.name > b.name),
   },
   {
     description: 'Amount',
-    sortFunction: (a: { amount: number }, b: { amount: number }) => {
-      return b.amount - a.amount
-    },
+    sortFunction: (a: { amount: number }, b: { amount: number }) => b.amount - a.amount,
   },
 ]
 

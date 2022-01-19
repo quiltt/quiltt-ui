@@ -28,8 +28,8 @@ const FormTextarea: React.FC<FormTextareaProps> = ({
     formState: { isSubmitting, errors },
   } = useFormContext()
   const error = Array.isArray(errors[name])
-    ? errors[name].join(', ')
-    : errors[name]?.message || errors[name]
+    ? (errors[name] as string[]).join(', ')
+    : (errors[name]?.message as string) || (errors[name] as string)
 
   const isDisabled = disabled || isSubmitting
 

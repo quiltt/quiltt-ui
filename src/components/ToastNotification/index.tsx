@@ -28,8 +28,6 @@ export const notify = (message: string, type: ToastTypes = 'default', options = 
   }
 }
 
-const ToastNotification: React.FC = () => {
-  return <ToastContainer />
-}
+const ToastNotification: React.FC = () => <ToastContainer />
 
 export default ToastNotification

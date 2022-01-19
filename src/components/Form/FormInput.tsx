@@ -42,20 +42,20 @@ const FormInput = React.forwardRef<HTMLInputElement, FormInputProps>(
       formState: { isSubmitting, errors },
     } = useFormContext()
     const error = Array.isArray(errors[name])
-      ? errors[name].join(', ')
-      : errors[name]?.message || errors[name]
+      ? (errors[name] as string[]).join(', ')
+      : (errors[name]?.message as string) || (errors[name] as string)
 
     const hasIcon = leftIcon || rightIcon
     const iconClasses =
       'flex items-center justify-center p-2 bg-gray-100 border border-gray-300 appearance-none'
     const leftIconClasses = classNames(
       iconClasses,
-      styles.input[size],
+      styles.input[size] as string,
       `border-r-0 rounded-${size} rounded-l-${size} rounded-r-none`
     )
     const rightIconClasses = classNames(
       iconClasses,
-      styles.input[size],
+      styles.input[size] as string,
       `border-l-0 rounded-${size} rounded-r-${size} rounded-l-none`
     )
 
@@ -81,9 +81,9 @@ const FormInput = React.forwardRef<HTMLInputElement, FormInputProps>(
     const inputProps = customRegister ? { ...customRegister } : { ...register(name) }
 
     const cls = classNames(
-      styles.input[baseStyles],
+      styles.input[baseStyles] as string,
       isCheckboxOrRadio && styles.input.radioCheckboxBase,
-      styles.input[size],
+      styles.input[size] as string,
       styles.input.active,
       isDisabled && styles.input.disabled,
       isValid && styles.input.valid

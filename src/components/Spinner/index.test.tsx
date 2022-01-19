@@ -4,15 +4,13 @@ import { render } from '@testing-library/react'
 
 import Spinner from '.'
 
-const SpinnerExamples: React.FC = () => {
-  return (
-    <>
-      <Spinner size="lg" />
-      <Spinner size="md" />
-      <Spinner size="sm" />
-    </>
-  )
-}
+const SpinnerExamples: React.FC = () => (
+  <>
+    <Spinner size="lg" />
+    <Spinner size="md" />
+    <Spinner size="sm" />
+  </>
+)
 
 const spinnerComponent: React.ReactElement = <SpinnerExamples />
 

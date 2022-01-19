@@ -4,14 +4,12 @@ import { render } from '@testing-library/react'
 
 import Checkbox from '.'
 
-const CheckboxExamples: React.FC = () => {
-  return (
-    <>
-      <Checkbox isChecked />
-      <Checkbox isChecked={false} />
-    </>
-  )
-}
+const CheckboxExamples: React.FC = () => (
+  <>
+    <Checkbox isChecked />
+    <Checkbox isChecked={false} />
+  </>
+)
 
 const checkboxComponent: React.ReactElement = <CheckboxExamples />
 

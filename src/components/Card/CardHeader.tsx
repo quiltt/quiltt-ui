@@ -11,7 +11,7 @@ export interface CardHeaderProps extends React.HTMLAttributes<HTMLDivElement> {
   colored?: boolean
 }
 
-const CardHeader = React.forwardRef<HTMLDivElement, CardHeaderProps>(function Card(props, ref) {
+const CardHeader = React.forwardRef<HTMLDivElement, CardHeaderProps>((props, ref) => {
   const { className, children, colored = false, ...otherProps } = props
 
   const baseStyle = styles.cardHeader.base

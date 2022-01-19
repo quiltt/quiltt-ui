@@ -22,24 +22,29 @@ export interface DropdownProps extends React.HTMLAttributes<HTMLUListElement> {
   align?: 'left' | 'right'
 }
 
-const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>(function Dropdown(props, ref) {
+const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>((props, ref) => {
   const { children, onClose, isOpen, className, align = 'left', ...otherProps } = props
-
   const baseStyle = styles.dropdown.base
   const alignStyle = styles.dropdown.align[align]
-
-  function handleEsc(e: KeyboardEvent) {
-    if (e.key === 'Esc' || e.key === 'Escape') {
-      onClose()
-    }
-  }
-
   const dropdownRef = React.useRef<HTMLUListElement>(null)
-  function handleClickOutside(e: MouseEvent) {
-    if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
-      onClose()
-    }
-  }
+
+  const handleEsc = React.useCallback(
+    (e: KeyboardEvent) => {
+      if (e.key === 'Esc' || e.key === 'Escape') {
+        onClose()
+      }
+    },
+    [onClose]
+  )
+
+  const handleClickOutside = React.useCallback(
+    (e: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
+        onClose()
+      }
+    },
+    [dropdownRef, onClose]
+  )
 
   React.useEffect(() => {
     document.addEventListener('click', handleClickOutside, { capture: true })
@@ -48,7 +53,7 @@ const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>(function Dropdo
       document.removeEventListener('click', handleClickOutside)
       document.removeEventListener('keydown', handleEsc)
     }
-  }, [isOpen])
+  }, [handleClickOutside, handleEsc, isOpen])
 
   const cls = classNames(baseStyle, alignStyle, className)
 

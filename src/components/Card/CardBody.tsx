@@ -4,9 +4,9 @@ import classNames from 'classnames'
 
 import styles from './styles'
 
-export interface CardBodyProps extends React.HTMLAttributes<HTMLDivElement> {}
+export type CardBodyProps = React.HTMLAttributes<HTMLDivElement>
 
-const CardBody = React.forwardRef<HTMLDivElement, CardBodyProps>(function CardBody(props, ref) {
+const CardBody = React.forwardRef<HTMLDivElement, CardBodyProps>((props, ref) => {
   const { className = '', children, ...otherProps } = props
 
   const cardBodyStyles = className || styles.cardBody.base

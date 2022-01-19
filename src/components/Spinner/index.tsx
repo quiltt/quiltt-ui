@@ -27,7 +27,7 @@ const WrappedSpinner: React.FC<SpinnerProps> = ({
   const baseStyles = styles.base
   // Use the theme spinner color for overlays, otherwise used passed in color
   const colorStyles = kind === 'overlay' ? styles.color.dark : styles.color[color]
-  const sizeStyles = styles.size[size]
+  const sizeStyles = styles.size[size] as string
 
   const cls = classNames(baseStyles, colorStyles, sizeStyles)
 

@@ -1,10 +1,10 @@
 {
   "root": true,
-  "env": {
-    "browser": true,
-    "node": true,
-    "jest": true,
-    "es2021": true
+  "globals": {
+    "React": true,
+    "JSX": true,
+    "expect": true,
+    "jsdom": true
   },
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
@@ -16,21 +16,8 @@
     },
     "project": "tsconfig.json"
   },
-  "settings": {
-    "react": {
-      "version": "detect"
-    }
-  },
-  "extends": ["plugin:react/recommended", "airbnb", "plugin:prettier/recommended"],
-  "plugins": ["simple-import-sort", "react", "@typescript-eslint"],
+  "extends": ["quiltt/typescript"],
   "rules": {
-    "@typescript-eslint/no-use-before-define": ["error"],
-    "@typescript-eslint/no-unused-vars": ["error", { "argsIgnorePattern": "^_" }],
-    "import/no-unresolved": ["off"],
-    "import/extensions": ["error", "never"],
-    "max-len": ["error", { "code": 100, "tabWidth": 2, "ignorePattern": "d=\"([\\s\\S]*?)\"" }],
-    "no-use-before-define": "off",
-    "no-unused-vars": "off",
     "prettier/prettier": [
       "error",
       {
@@ -43,33 +30,21 @@
         "trailingComma": "es5",
         "printWidth": 100
       }
-    ],
-    "react/function-component-definition": [0],
-    "react/jsx-filename-extension": [2, { "extensions": [".js", ".jsx", ".ts", ".tsx"] }],
-    "react/jsx-props-no-spreading": "off",
-    "react/prop-types": "off",
-    "react/require-default-props": "off",
-    "simple-import-sort/imports": [
-      "error",
-      {
-        "groups": [
-          ["^react", "^react-dom"],
-          ["^@?\\w"],
-          ["^(@|@company|@ui|components|utils|config|vendored-lib)(/.*|$)"],
-          ["^\\u0000"],
-          ["^\\.\\.(?!/?$)", "^\\.\\./?$"],
-          ["^\\./(?=.*/)(?!/?$)", "^\\.(?!/?$)", "^\\./?$"],
-          ["^.+\\.s?css$"]
-        ]
-      }
-    ],
-    "simple-import-sort/exports": "off"
-  },
-  "globals": {
-    "React": true,
-    "expect": true,
-    "jsdom": true,
-    "JSX": true
+    ]
+    // "simple-import-sort/imports": [
+    //   "error",
+    //   {
+    //     "groups": [
+    //       ["^react", "^react-dom"],
+    //       ["^@?\\w"],
+    //       ["^(@|@company|@ui|components|utils|config|vendored-lib)(/.*|$)"],
+    //       ["^\\u0000"],
+    //       ["^\\.\\.(?!/?$)", "^\\.\\./?$"],
+    //       ["^\\./(?=.*/)(?!/?$)", "^\\.(?!/?$)", "^\\./?$"],
+    //       ["^.+\\.s?css$"]
+    //     ]
+    //   }
+    // ]
   },
   "overrides": [
     {

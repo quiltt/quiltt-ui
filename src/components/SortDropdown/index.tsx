@@ -14,7 +14,7 @@ type Option = {
 type SortDropdownProps = {
   layout?: 'outline' | 'link' | 'solid'
   variant?: ColorVariants // The color variant of the button
-  label?: string
+  label: string
   options: Option[]
   reorder: React.Dispatch<React.SetStateAction<Option>>
 }
