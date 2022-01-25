@@ -20,7 +20,7 @@ export type ButtonProps = React.HTMLAttributes<HTMLElement> &
   CustomComponentProps & {
     children?: React.ReactNode
     disabled?: boolean // Defines if the button is disabled
-    size?: 'xl' | 'lg' | 'base' | 'sm' | 'pagination' // The size of the button
+    size?: 'sm' | 'md' | 'lg' | 'xl' | 'pagination' // The size of the button
     icon?: IconType // Shows only one icon inside the button; defaults to left
     iconLeft?: IconType // Shows a left aligned icon
     iconRight?: IconType // Shows a left aligned icon
@@ -40,7 +40,7 @@ const Button: CustomComponentRefForwardingComponent<'button', ButtonProps> = Rea
     as = 'button',
     type = as === 'button' ? 'button' : undefined, // anchor tags should not contain type attribute
     disabled = false,
-    size = 'base',
+    size = 'md',
     layout = 'solid',
     variant = 'primary',
     block = false,
@@ -68,24 +68,8 @@ const Button: CustomComponentRefForwardingComponent<'button', ButtonProps> = Rea
 
   const baseStyle = styles.base
   const blockStyle = styles.block
-  const sizeStyles = {
-    xl: styles.size.xl,
-    lg: styles.size.lg,
-    base: styles.size.base,
-    sm: styles.size.sm,
-    /**
-     * Only used in Pagination.
-     * Not meant for general use.
-     */
-    pagination: styles.size.pagination,
-  }
-  const iconSizeStyles = {
-    xl: styles.size.icon.xl,
-    lg: styles.size.icon.lg,
-    base: styles.size.icon.base,
-    sm: styles.size.icon.sm,
-    pagination: styles.size.icon.base,
-  }
+  const sizeStyles = styles.size[size]
+  const iconSizeStyles = styles.size.icon[size] as string
   const iconStyle = styles.icon[size] as string
   const layoutStyles = {
     solid: styles.variants.solid[variant].base,
@@ -114,9 +98,9 @@ const Button: CustomComponentRefForwardingComponent<'button', ButtonProps> = Rea
       ? classNames(dropdownItemStyle, className)
       : classNames(
           baseStyle,
-          hasIcon() && !children && iconSizeStyles[size], // has icon but no children
-          hasIcon() && children && sizeStyles[size], // has icon and children
-          !hasIcon() && sizeStyles[size], // does not have icon
+          hasIcon() && !children && (iconSizeStyles[size] as string), // has icon but no children
+          hasIcon() && children && (sizeStyles[size] as string), // has icon and children
+          !hasIcon() && (sizeStyles[size] as string), // does not have icon
           layoutStyles[layout],
           disabled ? disabledStyles[layout] : activeStyles[layout],
           block ? blockStyle : null,

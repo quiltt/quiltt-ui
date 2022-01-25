@@ -38,7 +38,7 @@
     "react-dom": "^17.0.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.16.7",
+    "@babel/core": "^7.16.10",
     "@babel/eslint-parser": "^7.16.5",
     "@babel/preset-react": "^7.16.7",
     "@commitlint/cli": "^16.0.2",
@@ -56,7 +56,7 @@
     "@types/bluebird": "^3.5.36",
     "@types/faker": "^5.5.9",
     "@types/jest": "^27.4.0",
-    "@types/node": "^17.0.9",
+    "@types/node": "^17.0.10",
     "@types/react": "^17.0.38",
     "@types/react-dom": "^17.0.11",
     "@typescript-eslint/eslint-plugin": "^5.10.0",
@@ -68,7 +68,7 @@
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-airbnb-typescript": "^16.1.0",
     "eslint-config-prettier": "^8.3.0",
-    "eslint-config-quiltt": "1.0.5",
+    "eslint-config-quiltt": "1.0.8",
     "eslint-import-resolver-typescript": "^2.5.0",
     "eslint-plugin-html": "^6.2.0",
     "eslint-plugin-import": "^2.25.4",

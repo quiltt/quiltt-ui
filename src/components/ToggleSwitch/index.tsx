@@ -17,7 +17,7 @@ export type ToggleSwitchProps = React.HTMLAttributes<HTMLButtonElement> & {
 const ToggleSwitch = React.forwardRef<HTMLButtonElement, ToggleSwitchProps>((props, ref) => {
   const {
     defaultChecked = false,
-    size = 'base',
+    size = 'md',
     disabled = false,
     label,
     onChange,
@@ -25,11 +25,11 @@ const ToggleSwitch = React.forwardRef<HTMLButtonElement, ToggleSwitchProps>((pro
   } = props
   const [enabled, setEnabled] = React.useState(defaultChecked)
 
-  const sizeStyles = styles.size[size] as string
+  const sizeStyles = styles.size[size]
   const checkedStyles = enabled ? styles.checked : styles.unchecked
-  const switchSizeStyles = styles.switch.size[size] as string
-  const switchTranslateStyles = styles.switch.translate[size] as string
-  const switchEnabledStyles = enabled ? switchTranslateStyles : 'translate-x-1'
+  const switchSizeStyles = styles.switch.size[size]
+  const switchTranslateStyles = styles.switch.translate[size]
+  const switchEnabledStyles = enabled ? switchTranslateStyles : 'translate-x-2'
 
   const baseStyles = classNames(styles.base, sizeStyles, checkedStyles)
   const switchStyles = classNames(styles.switch.base, switchSizeStyles, switchEnabledStyles)

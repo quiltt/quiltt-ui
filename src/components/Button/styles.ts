@@ -5,12 +5,12 @@ export default {
   size: {
     xl: 'px-10 py-5 rounded-lg text-xl',
     lg: 'px-5 py-4 rounded-lg text-xl',
-    base: 'px-4 py-3 rounded-lg text-lg',
+    md: 'px-4 py-3 rounded-lg text-lg',
     sm: 'px-3 py-2 rounded-md text-sm',
     icon: {
       xl: 'p-4 rounded-lg',
       lg: 'p-3 rounded-lg',
-      base: 'p-2 rounded-lg',
+      md: 'p-2 rounded-lg',
       sm: 'p-2 rounded-md',
     },
     pagination: 'px-3 py-2 rounded-md text-sm',
@@ -19,7 +19,7 @@ export default {
   icon: {
     xl: 'h-6 w-6',
     lg: 'h-5 w-5',
-    base: 'h-5 w-5',
+    md: 'h-5 w-5',
     sm: 'h-4 w-4',
     left: 'mr-2 -ml-1',
     right: 'ml-2 -mr-1',
