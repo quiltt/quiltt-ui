@@ -68,9 +68,9 @@ const Button: CustomComponentRefForwardingComponent<'button', ButtonProps> = Rea
 
   const baseStyle = styles.base
   const blockStyle = styles.block
-  const sizeStyles = styles.size[size]
-  const iconSizeStyles = styles.size.icon[size] as string
-  const iconStyle = styles.icon[size] as string
+  const sizeStyle = styles.size[size]
+  const iconSizeStyle = styles.size.icon[size]
+  const iconStyle = styles.icon[size]
   const layoutStyles = {
     solid: styles.variants.solid[variant].base,
     outline: styles.variants.outline[variant].base,
@@ -98,9 +98,9 @@ const Button: CustomComponentRefForwardingComponent<'button', ButtonProps> = Rea
       ? classNames(dropdownItemStyle, className)
       : classNames(
           baseStyle,
-          hasIcon() && !children && (iconSizeStyles[size] as string), // has icon but no children
-          hasIcon() && children && (sizeStyles[size] as string), // has icon and children
-          !hasIcon() && (sizeStyles[size] as string), // does not have icon
+          hasIcon() && !children && iconSizeStyle, // has icon but no children
+          hasIcon() && children && sizeStyle, // has icon and children
+          !hasIcon() && sizeStyle, // does not have icon
           layoutStyles[layout],
           disabled ? disabledStyles[layout] : activeStyles[layout],
           block ? blockStyle : null,

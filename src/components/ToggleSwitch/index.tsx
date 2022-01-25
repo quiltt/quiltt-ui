@@ -2,7 +2,7 @@ import * as React from 'react'
 
 import { Switch } from '@headlessui/react'
 import classNames from 'classnames'
-import { SizeVariants } from 'types'
+import { SizeVariants } from '../../types'
 
 import styles from './styles'
 
