@@ -29,7 +29,7 @@ const ToggleSwitch = React.forwardRef<HTMLButtonElement, ToggleSwitchProps>((pro
   const checkedStyles = enabled ? styles.checked : styles.unchecked
   const switchSizeStyles = styles.switch.size[size]
   const switchTranslateStyles = styles.switch.translate[size]
-  const switchEnabledStyles = enabled ? switchTranslateStyles : 'translate-x-2'
+  const switchEnabledStyles = enabled ? switchTranslateStyles : 'translate-x-0'
 
   const baseStyles = classNames(styles.base, sizeStyles, checkedStyles)
   const switchStyles = classNames(styles.switch.base, switchSizeStyles, switchEnabledStyles)
