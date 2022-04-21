@@ -3,8 +3,8 @@ import * as React from 'react'
 import { ChevronDownIcon } from '@heroicons/react/outline'
 
 import { ColorVariants } from '../../types'
-import Button from '../Button'
 import Dropdown from '../Dropdown'
+import Button from '../Button'
 
 type Option = {
   description: string

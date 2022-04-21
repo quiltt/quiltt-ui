@@ -4,6 +4,7 @@ import { useFormContext, UseFormRegisterReturn } from 'react-hook-form'
 import classNames from 'classnames'
 
 import FormErrorMessage from './FormErrorMessage'
+import { parseError } from '../../utils'
 import styles from './styles'
 
 export type FormTextareaProps = React.PropsWithoutRef<JSX.IntrinsicElements['textarea']> & {
@@ -27,9 +28,7 @@ const FormTextarea: React.FC<FormTextareaProps> = ({
     register,
     formState: { isSubmitting, errors },
   } = useFormContext()
-  const error = Array.isArray(errors[name])
-    ? (errors[name] as string[]).join(', ')
-    : (errors[name]?.message as string) || (errors[name] as string)
+  const error = parseError(errors, name)
 
   const isDisabled = disabled || isSubmitting
 

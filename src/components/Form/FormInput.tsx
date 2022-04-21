@@ -1,5 +1,6 @@
-import * as React from 'react'
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import { useFormContext, UseFormRegisterReturn } from 'react-hook-form'
+import * as React from 'react'
 
 import classNames from 'classnames'
 

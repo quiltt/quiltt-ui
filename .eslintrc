@@ -16,39 +16,10 @@
     },
     "project": "tsconfig.json"
   },
-  "extends": ["quiltt/typescript"],
-  "rules": {
-    "prettier/prettier": [
-      "error",
-      {
-        "singleQuote": true,
-        "semi": false,
-        "tabWidth": 2,
-        "bracketSpacing": true,
-        "bracketSameLine": false,
-        "arrowParens": "always",
-        "trailingComma": "es5",
-        "printWidth": 100
-      }
-    ]
-    // "simple-import-sort/imports": [
-    //   "error",
-    //   {
-    //     "groups": [
-    //       ["^react", "^react-dom"],
-    //       ["^@?\\w"],
-    //       ["^(@|@company|@ui|components|utils|config|vendored-lib)(/.*|$)"],
-    //       ["^\\u0000"],
-    //       ["^\\.\\.(?!/?$)", "^\\.\\./?$"],
-    //       ["^\\./(?=.*/)(?!/?$)", "^\\.(?!/?$)", "^\\./?$"],
-    //       ["^.+\\.s?css$"]
-    //     ]
-    //   }
-    // ]
-  },
+  "extends": ["prettier", "quiltt/typescript"],
   "overrides": [
     {
-      "files": ["*.test.ts", "*.test.tsx"],
+      "files": ["*.test.ts", "*.test.tsx", "*.spec.ts", "*.spec.tsx"],
       "rules": {
         "import/no-extraneous-dependencies": ["off"]
       }

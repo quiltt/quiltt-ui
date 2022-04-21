@@ -7,7 +7,7 @@ import {
   CustomComponentProps,
   CustomComponentRefForwardingComponent,
 } from '../../types'
-import warn from '../../utils/warning'
+import { warn } from '../../utils'
 
 import styles from './styles'
 

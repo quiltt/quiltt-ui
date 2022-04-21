@@ -10,6 +10,7 @@ const FormExample: React.FC = () => (
   <Form
     onSubmit={async (values) => {
       const returnedValue = (await Promise.resolve(values)) as Promise<Record<string, any>>
+      // eslint-disable-next-line no-console
       console.log(returnedValue)
     }}
   >

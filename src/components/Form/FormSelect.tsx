@@ -4,8 +4,9 @@ import { Controller, useForm, useFormContext } from 'react-hook-form'
 import { Listbox, Transition } from '@headlessui/react'
 import classNames from 'classnames'
 
-import { SizeVariants } from '../../types'
 import DynamicHeroIcon from '../DynamicHeroIcon'
+import { SizeVariants } from '../../types'
+import { parseError } from '../../utils'
 
 import FormErrorMessage from './FormErrorMessage'
 import styles from './styles'
@@ -47,9 +48,7 @@ const FormSelect: React.FC<FormSelectProps> = ({
     // Not calling `register` again `Controller` component handles the registration process
     formState: { isSubmitting, errors },
   } = useFormContext()
-  const error = Array.isArray(errors[name])
-    ? (errors[name] as string[]).join(', ')
-    : (errors[name]?.message as string) || (errors[name] as string)
+  const error = parseError(errors, name)
 
   const isDisabled = disabled || isSubmitting
 
