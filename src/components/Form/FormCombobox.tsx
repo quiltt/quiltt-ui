@@ -1,7 +1,7 @@
 import * as React from 'react'
 
 import { Controller, useForm, useFormContext } from 'react-hook-form'
-import { Listbox, Transition } from '@headlessui/react'
+import { Combobox, Transition } from '@headlessui/react'
 import classNames from 'classnames'
 
 import DynamicHeroIcon from '../DynamicHeroIcon'
@@ -11,38 +11,33 @@ import { parseError } from '../../utils'
 import FormErrorMessage from './FormErrorMessage'
 import styles from './styles'
 
-export type SelectOption = {
+type FormComboboxProps = React.PropsWithoutRef<JSX.IntrinsicElements['button']> & {
   label: string
-  value: string
-  disabled?: boolean
-}
-
-type FormSelectProps = React.PropsWithoutRef<JSX.IntrinsicElements['button']> & {
   name: string
   size?: SizeVariants
-  options: SelectOption[]
-  defaultValue?: SelectOption
-  label?: string
+  options: string[]
+  defaultValue?: string | undefined
   disabled?: boolean
   outerProps?: React.PropsWithoutRef<JSX.IntrinsicElements['div']>
-  onChange?: (e: SelectOption) => void
+  autoComplete?: HTMLInputElement['autocomplete']
+  onChange?: React.Dispatch<React.SetStateAction<string>>
 }
 
-const FormSelect: React.FC<FormSelectProps> = ({
+const FormCombobox: React.FC<FormComboboxProps> = ({
+  label,
+  options,
   name,
   size = 'md',
-  options,
-  defaultValue = options[0],
-  label = 'Select an option',
+  defaultValue = undefined,
+  autoComplete = undefined,
   disabled = false,
-  outerProps,
+  outerProps = undefined,
   onChange = (e) => {
     // eslint-disable-next-line no-console
     console.log(e)
   },
   ...otherProps
 }) => {
-  const [selectedOption, setSelectedOption] = React.useState(options[0])
   const { control } = useForm()
   const {
     // Not calling `register` again `Controller` component handles the registration process
@@ -54,17 +49,17 @@ const FormSelect: React.FC<FormSelectProps> = ({
   const isDisabled = disabled || isSubmitting
 
   const isValid = !error && !disabled && isSubmitting
+  const [selectedOption, setSelectedOption] = React.useState(defaultValue)
+  const [query, setQuery] = React.useState('')
 
-  React.useEffect(() => {
-    if (defaultValue) {
-      const current = options.find((option) => option === defaultValue)
-      if (current) {
-        setSelectedOption(current)
-      }
-    }
-  }, [options, defaultValue])
+  const filteredOptions =
+    query === ''
+      ? options
+      : options.filter((option) =>
+          option.toLowerCase().replace(/\s+/g, '').includes(query.toLowerCase().replace(/\s+/g, ''))
+        )
 
-  const handleChange = (e: SelectOption) => {
+  const handleChange = (e: string) => {
     setSelectedOption(e)
     onChange(e)
   }
@@ -85,44 +80,50 @@ const FormSelect: React.FC<FormSelectProps> = ({
   return (
     <Controller
       control={control}
-      defaultValue={selectedOption.value}
+      defaultValue={defaultValue}
       name={name}
       render={() => (
-        <Listbox value={selectedOption} onChange={handleChange}>
-          {({ open }) => (
-            <div {...outerProps} className="relative">
-              <Listbox.Label className={labelCls}>
-                {label}
-                <Listbox.Button className={cls} {...otherProps}>
-                  <span className="block px-2 text-left truncate">{selectedOption.label}</span>
-                  <span className={iconCls}>
-                    <DynamicHeroIcon icon="SelectorIcon" className="w-5 h-5 text-gray-400" />
-                  </span>
-                </Listbox.Button>
-              </Listbox.Label>
-              <Transition
-                show={open}
-                as={React.Fragment}
-                leave="transition ease-in duration-100"
-                leaveFrom="opacity-100"
-                leaveTo="opacity-0"
-              >
-                <Listbox.Options className={optionListCls}>
-                  {options.map((option) => (
-                    <Listbox.Option
-                      key={option.value}
+        <Combobox value={selectedOption} onChange={handleChange}>
+          <div {...outerProps} className="relative">
+            <Combobox.Label className={labelCls}>
+              {label}
+              <Combobox.Input
+                displayValue={(state: string) => state}
+                onChange={(event) => setQuery(event.target.value)}
+                autoComplete={autoComplete}
+                className="w-full border-none ring-0 focus:ring-0 focus:outline-none"
+              />
+              <Combobox.Button className={cls} {...otherProps}>
+                <span className={iconCls}>
+                  <DynamicHeroIcon icon="SelectorIcon" className="w-5 h-5 text-gray-400" />
+                </span>
+              </Combobox.Button>
+            </Combobox.Label>
+            <Transition
+              as={React.Fragment}
+              leave="transition ease-in duration-100"
+              leaveFrom="opacity-100"
+              leaveTo="opacity-0"
+              afterLeave={() => setQuery('')}
+            >
+              <Combobox.Options className={optionListCls}>
+                {filteredOptions.length === 0 && query !== '' ? (
+                  <div className="relative px-4 py-2 text-gray-700 cursor-default select-none">
+                    Nothing found.
+                  </div>
+                ) : (
+                  filteredOptions.map((option) => (
+                    <Combobox.Option
+                      key={option}
                       className={({ active }) =>
                         classNames(
-                          active && !option.disabled
-                            ? 'text-white bg-primary-400'
-                            : 'text-gray-900',
-                          option.disabled ? 'cursor-not-allowed text-gray-500' : 'cursor-default',
+                          active ? 'text-white bg-primary-400' : 'text-gray-900',
                           'select-none relative py-2 pl-3 pr-9'
                         )
                       }
                       value={option}
-                      disabled={option.disabled}
                     >
+                      {/* eslint-disable-next-line @typescript-eslint/no-shadow */}
                       {({ selected, active }) => (
                         <>
                           <span
@@ -131,7 +132,7 @@ const FormSelect: React.FC<FormSelectProps> = ({
                               optionItemCls
                             )}
                           >
-                            {option.label}
+                            {option}
                           </span>
                           {selected ? (
                             <span
@@ -145,17 +146,17 @@ const FormSelect: React.FC<FormSelectProps> = ({
                           ) : null}
                         </>
                       )}
-                    </Listbox.Option>
-                  ))}
-                </Listbox.Options>
-              </Transition>
-              <FormErrorMessage name={name} />
-            </div>
-          )}
-        </Listbox>
+                    </Combobox.Option>
+                  ))
+                )}
+              </Combobox.Options>
+            </Transition>
+            <FormErrorMessage name={name} />
+          </div>
+        </Combobox>
       )}
     />
   )
 }
 
-export default FormSelect
+export default FormCombobox
