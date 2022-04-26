@@ -10,6 +10,7 @@ import Button from '../Button'
 
 import FormErrorMessage from './FormErrorMessage'
 import FormTextarea from './FormTextarea'
+import FormCombobox from './FormCombobox'
 import FormSelect from './FormSelect'
 import FormInput from './FormInput'
 
@@ -104,6 +105,7 @@ Form.displayName = 'Form'
 
 export default Object.assign(Form, {
   Input: FormInput,
+  Combobox: FormCombobox,
   Select: FormSelect,
   Textarea: FormTextarea,
   ErrorMessage: FormErrorMessage,
