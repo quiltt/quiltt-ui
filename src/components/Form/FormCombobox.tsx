@@ -38,6 +38,8 @@ const FormCombobox: React.FC<FormComboboxProps> = ({
   },
   ...otherProps
 }) => {
+  const [selectedOption, setSelectedOption] = React.useState(defaultValue)
+  const [query, setQuery] = React.useState('')
   const { control } = useForm()
   const {
     // Not calling `register` again `Controller` component handles the registration process
@@ -49,8 +51,6 @@ const FormCombobox: React.FC<FormComboboxProps> = ({
   const isDisabled = disabled || isSubmitting
 
   const isValid = !error && !disabled && isSubmitting
-  const [selectedOption, setSelectedOption] = React.useState(defaultValue)
-  const [query, setQuery] = React.useState('')
 
   const filteredOptions =
     query === ''

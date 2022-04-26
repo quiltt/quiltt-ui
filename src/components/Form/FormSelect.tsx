@@ -21,18 +21,18 @@ type FormSelectProps = React.PropsWithoutRef<JSX.IntrinsicElements['button']> & 
   name: string
   size?: SizeVariants
   options: SelectOption[]
-  defaultValue?: SelectOption
+  defaultValue?: string
   label?: string
   disabled?: boolean
   outerProps?: React.PropsWithoutRef<JSX.IntrinsicElements['div']>
-  onChange?: (e: SelectOption) => void
+  onChange?: React.Dispatch<React.SetStateAction<string>>
 }
 
 const FormSelect: React.FC<FormSelectProps> = ({
   name,
   size = 'md',
   options,
-  defaultValue = options[0],
+  defaultValue = options[0].value,
   label = 'Select an option',
   disabled = false,
   outerProps,
@@ -42,7 +42,7 @@ const FormSelect: React.FC<FormSelectProps> = ({
   },
   ...otherProps
 }) => {
-  const [selectedOption, setSelectedOption] = React.useState(options[0])
+  const [selectedOption, setSelectedOption] = React.useState(options[0].value)
   const { control } = useForm()
   const {
     // Not calling `register` again `Controller` component handles the registration process
@@ -57,14 +57,14 @@ const FormSelect: React.FC<FormSelectProps> = ({
 
   React.useEffect(() => {
     if (defaultValue) {
-      const current = options.find((option) => option === defaultValue)
+      const current = options.find((option) => option.value === defaultValue)
       if (current) {
-        setSelectedOption(current)
+        setSelectedOption(current.value)
       }
     }
   }, [options, defaultValue])
 
-  const handleChange = (e: SelectOption) => {
+  const handleChange = (e: string) => {
     setSelectedOption(e)
     onChange(e)
   }
@@ -85,73 +85,79 @@ const FormSelect: React.FC<FormSelectProps> = ({
   return (
     <Controller
       control={control}
-      defaultValue={selectedOption.value}
+      defaultValue={selectedOption}
       name={name}
       render={() => (
         <Listbox value={selectedOption} onChange={handleChange}>
-          {({ open }) => (
-            <div {...outerProps} className="relative">
-              <Listbox.Label className={labelCls}>
-                {label}
-                <Listbox.Button className={cls} {...otherProps}>
-                  <span className="block px-2 text-left truncate">{selectedOption.label}</span>
-                  <span className={iconCls}>
-                    <DynamicHeroIcon icon="SelectorIcon" className="w-5 h-5 text-gray-400" />
-                  </span>
-                </Listbox.Button>
-              </Listbox.Label>
-              <Transition
-                show={open}
-                as={React.Fragment}
-                leave="transition ease-in duration-100"
-                leaveFrom="opacity-100"
-                leaveTo="opacity-0"
-              >
-                <Listbox.Options className={optionListCls}>
-                  {options.map((option) => (
-                    <Listbox.Option
-                      key={option.value}
-                      className={({ active }) =>
-                        classNames(
-                          active && !option.disabled
-                            ? 'text-white bg-primary-400'
-                            : 'text-gray-900',
-                          option.disabled ? 'cursor-not-allowed text-gray-500' : 'cursor-default',
-                          'select-none relative py-2 pl-3 pr-9'
-                        )
-                      }
-                      value={option}
-                      disabled={option.disabled}
-                    >
-                      {({ selected, active }) => (
-                        <>
-                          <span
-                            className={classNames(
-                              selected ? 'font-semibold' : 'font-normal',
-                              optionItemCls
-                            )}
-                          >
-                            {option.label}
-                          </span>
-                          {selected ? (
+          {({ open }) => {
+            const current = options.find((option) => option.value === defaultValue)
+
+            return (
+              <div {...outerProps} className="relative">
+                <Listbox.Label className={labelCls}>
+                  {label}
+                  <Listbox.Button className={cls} {...otherProps}>
+                    <span className="block px-2 text-left truncate">
+                      {current && current.label}
+                    </span>
+                    <span className={iconCls}>
+                      <DynamicHeroIcon icon="SelectorIcon" className="w-5 h-5 text-gray-400" />
+                    </span>
+                  </Listbox.Button>
+                </Listbox.Label>
+                <Transition
+                  show={open}
+                  as={React.Fragment}
+                  leave="transition ease-in duration-100"
+                  leaveFrom="opacity-100"
+                  leaveTo="opacity-0"
+                >
+                  <Listbox.Options className={optionListCls}>
+                    {options.map((option) => (
+                      <Listbox.Option
+                        key={option.value}
+                        className={({ active }) =>
+                          classNames(
+                            active && !option.disabled
+                              ? 'text-white bg-primary-400'
+                              : 'text-gray-900',
+                            option.disabled ? 'cursor-not-allowed text-gray-500' : 'cursor-default',
+                            'select-none relative py-2 pl-3 pr-9'
+                          )
+                        }
+                        value={option}
+                        disabled={option.disabled}
+                      >
+                        {({ selected, active }) => (
+                          <>
                             <span
                               className={classNames(
-                                active ? 'text-white' : 'text-primary-400',
-                                'absolute inset-y-0 right-0 flex items-center pr-4'
+                                selected ? 'font-semibold' : 'font-normal',
+                                optionItemCls
                               )}
                             >
-                              <DynamicHeroIcon className="w-5 h-5" icon="CheckIcon" />
+                              {option.label}
                             </span>
-                          ) : null}
-                        </>
-                      )}
-                    </Listbox.Option>
-                  ))}
-                </Listbox.Options>
-              </Transition>
-              <FormErrorMessage name={name} />
-            </div>
-          )}
+                            {selected ? (
+                              <span
+                                className={classNames(
+                                  active ? 'text-white' : 'text-primary-400',
+                                  'absolute inset-y-0 right-0 flex items-center pr-4'
+                                )}
+                              >
+                                <DynamicHeroIcon className="w-5 h-5" icon="CheckIcon" />
+                              </span>
+                            ) : null}
+                          </>
+                        )}
+                      </Listbox.Option>
+                    ))}
+                  </Listbox.Options>
+                </Transition>
+                <FormErrorMessage name={name} />
+              </div>
+            )
+          }}
         </Listbox>
       )}
     />
