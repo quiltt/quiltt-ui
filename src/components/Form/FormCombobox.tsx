@@ -11,7 +11,7 @@ import { parseError } from '../../utils'
 import FormErrorMessage from './FormErrorMessage'
 import styles from './styles'
 
-type FormComboboxProps = React.PropsWithoutRef<JSX.IntrinsicElements['button']> & {
+type FormComboboxProps = React.PropsWithoutRef<JSX.IntrinsicElements['input']> & {
   label: string
   name: string
   size?: SizeVariants
@@ -65,14 +65,23 @@ const FormCombobox: React.FC<FormComboboxProps> = ({
   }
 
   const cls = classNames(
-    styles.select.base,
-    styles.select[size],
+    'relative',
+    styles.input.base,
+    styles.input[size] as string,
     styles.input.active,
     isDisabled && styles.input.disabled,
     isValid && styles.input.valid
   )
 
-  const labelCls = classNames(styles.label.base, disabled && styles.label.disabled)
+  const buttonCls = classNames(
+    'absolute',
+    'w-full',
+    'cursor-default',
+    'bottom-0 inset-x-0',
+    styles.input[size] as string
+  )
+
+  const labelCls = classNames('relative', styles.label.base, disabled && styles.label.disabled)
   const iconCls = classNames(styles.select.icon)
   const optionListCls = classNames(styles.select.options.list)
   const optionItemCls = classNames(styles.select.options.item)
@@ -91,9 +100,10 @@ const FormCombobox: React.FC<FormComboboxProps> = ({
                 displayValue={(state: string) => state}
                 onChange={(event) => setQuery(event.target.value)}
                 autoComplete={autoComplete}
-                className="w-full border-none ring-0 focus:ring-0 focus:outline-none"
+                className={cls}
+                {...otherProps}
               />
-              <Combobox.Button className={cls} {...otherProps}>
+              <Combobox.Button className={buttonCls}>
                 <span className={iconCls}>
                   <DynamicHeroIcon icon="SelectorIcon" className="w-5 h-5 text-gray-400" />
                 </span>
