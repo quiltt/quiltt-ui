@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-import { render } from '@testing-library/react'
+import { act, render } from '@testing-library/react'
 
 import Dropdown from '.'
 
@@ -26,6 +26,9 @@ const DropdownExample: React.FC = () => {
 const dropdownComponent: React.ReactElement = <DropdownExample />
 
 it('renders dropdown component', () => {
-  render(dropdownComponent)
+  act(() => {
+    render(dropdownComponent)
+  })
+
   expect(dropdownComponent).toBeTruthy()
 })
