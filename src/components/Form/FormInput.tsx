@@ -33,7 +33,7 @@ const FormInput = React.forwardRef<HTMLInputElement, FormInputProps>(
       rightIcon = undefined,
       disabled = false,
       customRegister = undefined,
-      outerProps,
+      outerProps = undefined,
       ...otherProps
     },
     ref
