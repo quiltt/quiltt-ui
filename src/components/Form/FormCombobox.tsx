@@ -64,10 +64,17 @@ const FormCombobox: React.FC<FormComboboxProps> = ({
     onChange(e)
   }
 
+  const cornerRadius = {
+    sm: 'rounded',
+    md: 'rounded-md',
+    lg: 'rounded-lg',
+  }
+
   const cls = classNames(
     'relative',
     styles.input.base,
     styles.input[size] as string,
+    cornerRadius[size] as string,
     styles.input.active,
     isDisabled && styles.input.disabled,
     isValid && styles.input.valid
