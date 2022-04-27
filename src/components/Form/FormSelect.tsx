@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-import { Controller, useFormContext, UseFormRegisterReturn } from 'react-hook-form'
+import { Controller, useFormContext } from 'react-hook-form'
 import { Listbox, Transition } from '@headlessui/react'
 import classNames from 'classnames'
 
@@ -21,11 +21,10 @@ type FormSelectProps = Omit<React.PropsWithoutRef<JSX.IntrinsicElements['button'
   name: string
   size?: SizeVariants
   options: SelectOption[]
-  defaultValue?: string
+  defaultValue?: string | undefined
   label?: string
   disabled?: boolean
   outerProps?: React.PropsWithoutRef<JSX.IntrinsicElements['div']>
-  customRegister?: UseFormRegisterReturn
   onChange?: (value: string) => void
 }
 
@@ -33,19 +32,17 @@ const FormSelect: React.FC<FormSelectProps> = ({
   name,
   size = 'md',
   options,
-  defaultValue = options[0].value,
+  defaultValue = undefined,
   label = 'Select an option',
   disabled = false,
   outerProps = undefined,
-  customRegister = undefined,
   onChange = undefined,
   ...otherProps
 }) => {
-  const [selectedOption, setSelectedOption] = React.useState(options[0].value)
+  const [selectedOption, setSelectedOption] = React.useState(defaultValue)
   const {
-    control,
-    register,
     setValue,
+    control,
     formState: { isSubmitting, errors },
   } = useFormContext()
 
@@ -54,19 +51,6 @@ const FormSelect: React.FC<FormSelectProps> = ({
   const isDisabled = disabled || isSubmitting
 
   const isValid = !error && !disabled && isSubmitting
-
-  const inputProps = customRegister ? { ...customRegister } : { ...register(name) }
-  // Destructuring `inputProps` to avoid passing `onChange` to `inputProps`
-  const { onChange: onChangeProp, ...otherInputProps } = inputProps
-
-  React.useEffect(() => {
-    if (defaultValue) {
-      const current = options.find((option) => option.value === defaultValue)
-      if (current) {
-        setSelectedOption(current.value)
-      }
-    }
-  }, [options, defaultValue])
 
   const cls = classNames(
     styles.select.base,
@@ -84,13 +68,13 @@ const FormSelect: React.FC<FormSelectProps> = ({
   return (
     <Controller
       control={control}
-      defaultValue={selectedOption}
+      defaultValue={defaultValue}
       name={name}
       render={() => {
         const handleChange = (e: string) => {
           setSelectedOption(e)
           setValue(name, e, {
-            shouldDirty: true,
+            shouldDirty: false,
             shouldTouch: true,
             shouldValidate: true,
           })
@@ -98,36 +82,15 @@ const FormSelect: React.FC<FormSelectProps> = ({
             onChange(e)
           }
         }
-        const handleListboxChange = (e: string) => {
-          handleChange(e)
-        }
-        const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-          const matchingOption = options.filter((option) =>
-            option.value
-              .toLowerCase()
-              .replace(/\s+/g, '')
-              .includes(e.target.value.toLowerCase().replace(/\s+/g, ''))
-          )[0].value
-          if (matchingOption) {
-            handleChange(matchingOption)
-          }
-        }
         return (
-          <Listbox value={selectedOption} onChange={handleListboxChange}>
+          <Listbox value={selectedOption} onChange={handleChange}>
             {({ open }) => {
-              const current = options.find((option) => option.value === defaultValue)
+              const current = options.find((option) => option.value === selectedOption)
 
               return (
                 <div {...outerProps} className="relative">
                   <Listbox.Label className={labelCls}>
                     {label}
-                    <input
-                      type="text"
-                      className="sr-only"
-                      value={current?.value}
-                      onChange={handleInputChange}
-                      {...otherInputProps}
-                    />
                     <Listbox.Button className={cls} {...otherProps}>
                       <span className="block px-2 text-left truncate">
                         {current && current.label}
@@ -159,7 +122,7 @@ const FormSelect: React.FC<FormSelectProps> = ({
                               'select-none relative py-2 pl-3 pr-9'
                             )
                           }
-                          value={option}
+                          value={option.value}
                           disabled={option.disabled}
                         >
                           {({ selected, active }) => (

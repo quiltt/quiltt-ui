@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-import { Controller, useFormContext, UseFormRegisterReturn } from 'react-hook-form'
+import { Controller, useFormContext } from 'react-hook-form'
 import { Combobox, Transition } from '@headlessui/react'
 import classNames from 'classnames'
 
@@ -20,7 +20,6 @@ type FormComboboxProps = Omit<React.PropsWithoutRef<JSX.IntrinsicElements['input
   disabled?: boolean
   outerProps?: React.PropsWithoutRef<JSX.IntrinsicElements['div']>
   autoComplete?: HTMLInputElement['autocomplete']
-  customRegister?: UseFormRegisterReturn
   onChange?: (value: string) => void
 }
 
@@ -33,16 +32,14 @@ const FormCombobox: React.FC<FormComboboxProps> = ({
   autoComplete = undefined,
   disabled = false,
   outerProps = undefined,
-  customRegister = undefined,
   onChange = undefined,
   ...otherProps
 }) => {
   const [selectedOption, setSelectedOption] = React.useState(defaultValue)
   const [query, setQuery] = React.useState('')
   const {
-    control,
-    register,
     setValue,
+    control,
     formState: { isSubmitting, errors },
   } = useFormContext()
 
@@ -88,10 +85,6 @@ const FormCombobox: React.FC<FormComboboxProps> = ({
   const optionListCls = classNames(styles.select.options.list)
   const optionItemCls = classNames(styles.select.options.item)
 
-  const inputProps = customRegister ? { ...customRegister } : { ...register(name) }
-  // Destructuring `inputProps` to avoid passing `onChange` to `inputProps`
-  const { onChange: onChangeProp, ...otherInputProps } = inputProps
-
   return (
     <Controller
       control={control}
@@ -101,7 +94,7 @@ const FormCombobox: React.FC<FormComboboxProps> = ({
         const handleChange = (e: string) => {
           setSelectedOption(e)
           setValue(name, e, {
-            shouldDirty: true,
+            shouldDirty: false,
             shouldTouch: true,
             shouldValidate: true,
           })
@@ -114,15 +107,8 @@ const FormCombobox: React.FC<FormComboboxProps> = ({
         }
         const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
           setQuery(e.target.value)
-          // if query matches any options set as selectedOption
-          const matchingOption = options.filter((option) =>
-            option
-              .toLowerCase()
-              .replace(/\s+/g, '')
-              .includes(e.target.value.toLowerCase().replace(/\s+/g, ''))
-          )[0]
-          if (matchingOption) {
-            handleChange(matchingOption)
+          if (e.target.value) {
+            handleChange(e.target.value)
           }
         }
         return (
@@ -135,7 +121,6 @@ const FormCombobox: React.FC<FormComboboxProps> = ({
                   onChange={handleInputChange}
                   autoComplete={autoComplete}
                   className={cls}
-                  {...otherInputProps}
                   {...otherProps}
                 />
                 <Combobox.Button className={buttonCls}>
