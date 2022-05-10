@@ -14,13 +14,14 @@ type SpinnerProps = {
   kind?: SpinnerKind
   style?: React.CSSProperties
   className?: string
+  children?: React.ReactNode
 }
 
 const WrappedSpinner: React.FC<SpinnerProps> = ({
   color = 'dark',
   kind = 'centered',
   size = 'lg',
-  children,
+  children = undefined,
   style = {},
   className = '',
 }) => {
