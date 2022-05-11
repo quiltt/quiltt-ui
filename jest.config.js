@@ -23,4 +23,5 @@ module.exports = {
   watchPlugins: ['jest-watch-typeahead/filename', 'jest-watch-typeahead/testname'],
   resetMocks: true,
   verbose: true,
+  resolver: '<rootDir>/jest/resolver.js',
 }
